@@ -8,35 +8,34 @@ public class Ne implements Runnable {
 	
 	public void run(){
 		for(;;){
-			System.out.println("S");
 			Follow();
 			try{Thread.sleep(300);}catch(Exception e){}
 		}
 	}
 
 	public void Follow() {
-		if(pathx<Main.pg.pathx){
-			if(!Map.maze[pathx+1][pathy]){
+		if(pathx<Main.pg.pathx&&Map.maze[pathx+1][pathy]==0){
+			while(Map.maze[pathx+1][pathy]==0&&pathx<Main.pg.pathx){
 				pathx++;
-				return;
+				try{Thread.sleep(300);}catch(Exception e){}
 			}}
 			else
-			if(pathx>Main.pg.pathx){
-				if(!Map.maze[pathx-1][pathy]){
+			if(pathx>Main.pg.pathx&&Map.maze[pathx-1][pathy]==0){
+				while(Map.maze[pathx-1][pathy]==0&&pathx>Main.pg.pathx){
 					pathx--;
-					return;
+					try{Thread.sleep(300);}catch(Exception e){}
 				}}
-
-		if(pathy<Main.pg.pathy){
-			if(!Map.maze[pathx][pathy+1]){
+		else
+		if(pathy<Main.pg.pathy&&Map.maze[pathx][pathy+1]==0){
+			while(Map.maze[pathx][pathy+1]==0&&pathy<Main.pg.pathy){
 				pathy++;
-				return;
+				try{Thread.sleep(300);}catch(Exception e){}
 			}}
 			else
-			if(pathy>Main.pg.pathy){
-				if(!Map.maze[pathx][pathy-1]){
+			if(pathy>Main.pg.pathy&&Map.maze[pathx][pathy-1]==0){
+				while(Map.maze[pathx][pathy-1]==0&&pathy>Main.pg.pathy){
 					pathy--;
-					return;
+					try{Thread.sleep(300);}catch(Exception e){}
 				}}
 
 		
