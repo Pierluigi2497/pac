@@ -1,5 +1,4 @@
-import java.io.Serializable;
-public class Map implements Serializable{
+public class Map {
 	static int x=28;
 	static int y=31;
 	public static int maze[][]=new int[x][y];

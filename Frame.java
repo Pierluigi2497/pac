@@ -3,7 +3,7 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 import java.awt.image.BufferedImage;
-import java.net.URL;
+import javax.imageio.*;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -19,7 +19,7 @@ public class Frame extends JPanel implements Runnable {
 	private BufferedImage image;
 	public void run(){
 		for(;;){
-			image=ImageIO.read(Pg.r);
+
 		repaint();
 		try{ Thread.sleep(40);} catch(Exception e) {}
 		}
@@ -33,9 +33,9 @@ public class Frame extends JPanel implements Runnable {
 	                	color=Color.BLUE;
 	                else
 	                	color=Color.BLACK;
-	                if(row==Main.pg.pathx&&col==Main.pg.pathy) {
+	               /* if(row==Main.pg.pathx&&col==Main.pg.pathy) {
 	                	color=Color.YELLOW;
-	                }
+	                }*/
 	                for(int i=0;i<4;i++)
 	                	if(row==Main.ne[i].pathx&&col==Main.ne[i].pathy) {
 	                		color=Color.RED;
@@ -44,8 +44,8 @@ public class Frame extends JPanel implements Runnable {
 	                g.fillRect((Main.f.getWidth()/Map.x) * row, (Main.f.getHeight()/Map.y) * (col), (Main.f.getWidth()/Map.x), (Main.f.getHeight()/Map.y));
 	                g.setColor(color);
 	                g.drawRect((Main.f.getWidth()/Map.x) * row, (Main.f.getHeight()/Map.y) * (col), (Main.f.getWidth()/Map.x), (Main.f.getHeight()/Map.y));
-	                if(color==Color.YELLOW)
-	                	g.drawImage(image,1,1,this);
+	                if(row==Main.pg.pathx&&col==Main.pg.pathy)
+	                	g.drawImage(Main.pac[0],(Main.f.getWidth()/Map.x) * row,(Main.f.getHeight()/Map.y) * (col),(Main.f.getWidth()/Map.x),(Main.f.getHeight()/Map.y),this);
 	            }
 	        }
 	  }  

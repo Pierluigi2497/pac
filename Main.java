@@ -1,6 +1,7 @@
 import javax.swing.JFrame;
 import javax.swing.JComponent;
-
+import java.awt.image.BufferedImage;
+import javax.imageio.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -9,7 +10,10 @@ import java.awt.*;
 public class Main{
 	  static Frame f=new Frame();
 	  static Ne[] ne=new Ne[4];
-
+	  static BufferedImage img;
+	  static BufferedImage[] death=new BufferedImage[12];
+	  static BufferedImage[] pac=new BufferedImage[8];
+	  static BufferedImage[] ghost=new BufferedImage[12];
 	  static Pg pg=new Pg(6,9);  
 	  static Thread disegno=new Thread(f);
 	  static Thread[] n=new Thread[4];
@@ -18,6 +22,10 @@ public class Main{
 
 
 	  public static void main(String[] args) {
+	  	try{img=ImageIO.read(Main.class.getResource("/res/sheet.png"));}catch(Exception e){}
+	  	 pac[0]=img.getSubimage(4,1,13,13);
+	  	 
+
 	  	 ne[0]=new Ne(11,14);
 	 	 ne[1]=new Ne(12,14);
 	 	 ne[2]=new Ne(15,14);
@@ -42,6 +50,10 @@ public class Main{
 		  n[3].start();
 		  disegno.start();
 		  
+	  }
+
+	  public static void getImg(){
+	  	
 	  }
 
 

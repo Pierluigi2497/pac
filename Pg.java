@@ -1,8 +1,5 @@
-import java.net.URL;
-
 public class Pg implements Runnable{
 	public int pathx,pathy;
-	static URL r=getClass().getResource("./img/pac.png");
 	public Pg(int x,int y){
 		pathx=x;
 		pathy=y;
