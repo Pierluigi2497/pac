@@ -11,39 +11,43 @@ public class Main{
 	  static Frame f=new Frame();
 	  static Ne[] ne=new Ne[4];
 	  static BufferedImage img;
-	  static BufferedImage[] death=new BufferedImage[12];
-	  static BufferedImage[] pac=new BufferedImage[8];
-	  static BufferedImage[] ghost=new BufferedImage[12];
-	  static Pg pg=new Pg(6,9);  
+	  static Pg pg;  
 	  static Thread disegno=new Thread(f);
 	  static Thread[] n=new Thread[4];
-	  static Thread p=new Thread(pg);
+	  static Thread p;
 	  static char cdir;
+	  static Boolean gOver =false;
+	  static BufferedImage map;
+	  static BufferedImage Game;
 
 
 	  public static void main(String[] args) {
-	  	try{img=ImageIO.read(Main.class.getResource("/res/sheet.png"));}catch(Exception e){}
-	  	 pac[0]=img.getSubimage(4,1,13,13);
-	  	 
 
-	  	 ne[0]=new Ne(11,14);
-	 	 ne[1]=new Ne(12,14);
-	 	 ne[2]=new Ne(15,14);
-	 	 ne[3]=new Ne(16,14);
+
+	  	try{img=ImageIO.read(Main.class.getResource("/res/sheet.png"));
+	  		map=ImageIO.read(Main.class.getResource("/res/map.png"));}catch(Exception e){}
+
+	  	 pg=new Pg(6,9);
+	  	 ne[0]=new Ne(12,14,"red");
+	 	 ne[1]=new Ne(13,14,"pink");
+	 	 ne[2]=new Ne(14,14,"blue");
+	 	 ne[3]=new Ne(15,14,"yellow");
 	 	 n[0]=new Thread(ne[0]);
 	 	 n[1]=new Thread(ne[1]);
 	 	 n[2]=new Thread(ne[2]);
 	 	 n[3]=new Thread(ne[3]);
+	 	 p=new Thread(pg);
 		  f.f.setVisible(true);
-		  f.f.setSize(640,740);
+		  f.f.setSize(640,720);
 		  f.f.add(f);
-		  f.f.setBackground(Color.BLACK);
-		  p.start();
+		  f.f.setBackground(Color.BLACK);	  
 		  f.f.addKeyListener(new KeyAdapter() {
 				public void keyTyped(KeyEvent e) {
 					cdir=e.getKeyChar();
 				}
 			});
+		
+		  p.start();
 		  n[0].start();
 		  n[1].start();
 		  n[2].start();
@@ -51,16 +55,5 @@ public class Main{
 		  disegno.start();
 		  
 	  }
-
-	  public static void getImg(){
-	  	
-	  }
-
-
-	  
-
-	  
-
-
 	   
 }

@@ -26,31 +26,21 @@ public class Frame extends JPanel implements Runnable {
 	}
 
 	  public void paintComponent(Graphics g) {
-	        for (int row = 0; row < map.maze.length; row++) /*row x */{
-	            for (int col = 0; col < map.maze[0].length; col++)/*col y*/ {
-	                Color color;
-	                if(map.maze[row][col]==1)
-	                	color=Color.BLUE;
-	                else
-	                	color=Color.BLACK;
-	               /* if(row==Main.pg.pathx&&col==Main.pg.pathy) {
-	                	color=Color.YELLOW;
-	                }*/
-	                for(int i=0;i<4;i++)
-	                	if(row==Main.ne[i].pathx&&col==Main.ne[i].pathy) {
-	                		color=Color.RED;
-	               		 }
-	                g.setColor(color);
-	                g.fillRect((Main.f.getWidth()/Map.x) * row, (Main.f.getHeight()/Map.y) * (col), (Main.f.getWidth()/Map.x), (Main.f.getHeight()/Map.y));
-	                g.setColor(color);
-	                g.drawRect((Main.f.getWidth()/Map.x) * row, (Main.f.getHeight()/Map.y) * (col), (Main.f.getWidth()/Map.x), (Main.f.getHeight()/Map.y));
-	                if(row==Main.pg.pathx&&col==Main.pg.pathy)
-	                	g.drawImage(Main.pac[0],(Main.f.getWidth()/Map.x) * row,(Main.f.getHeight()/Map.y) * (col),(Main.f.getWidth()/Map.x),(Main.f.getHeight()/Map.y),this);
-	            }
-	        }
-	  }  
+	             g.setColor(Color.WHITE);
+	                g.drawImage(Main.map,0,0,((Main.f.getWidth()/Map.x)*Map.x),((Main.f.getHeight()/Map.y)*Map.y),this);
+	                g.drawImage(Main.pg.Pac,(Main.f.getWidth()/Map.x) * Main.pg.pathx,(Main.f.getHeight()/Map.y) * Main.pg.pathy,(Main.f.getWidth()/Map.x),(Main.f.getHeight()/Map.y),this);
+	                if(!Main.gOver)
+	               	 for(int i=0;i<4;i++)
+	                	g.drawImage(Main.ne[i].n,(Main.f.getWidth()/Map.x) * Main.ne[i].pathx,(Main.f.getHeight()/Map.y) * Main.ne[i].pathy,(Main.f.getWidth()/Map.x),(Main.f.getHeight()/Map.y),this);
+	                //Disegno Palline
+	               	for(int i=0;i<Map.x;i++)
+	               		for(int l=0;l<Map.y;l++)
+	               			if(Map.maze[i][l]==2){
+	               				g.drawOval((Main.f.getWidth()/Map.x) * i,(Main.f.getHeight()/Map.y) * l,5,5);
+	               				g.fillOval((Main.f.getWidth()/Map.x) * i,(Main.f.getHeight()/Map.y) * l,5,5);}
+
+	               	}
 
 
-	  
 
-	 }
+}

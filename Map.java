@@ -12,7 +12,7 @@ public class Map {
 					else
 					maze[i][l]=1;
 				else
-					maze[i][l]=0;
+					maze[i][l]=2;//Palline
 			}
 		}
 
