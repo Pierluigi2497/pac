@@ -46,12 +46,13 @@ public class Pg implements Runnable{
 			if(c){
 				Pac=pac[1];
 				c=!c;
-			}else
-				{
-					Pac=pac[2];
-					c=!c;
+			}else{
+				Pac=pac[2];
+				c=!c;
 				}
 			pathx++;
+			if(Map.maze[pathx][pathy]==3){Main.Eat=true;}//Palla grossa
+			Map.maze[pathx][pathy]=0;
 			try{Thread.sleep(250);}catch(Exception e){}
 			
 		}
@@ -63,12 +64,13 @@ public class Pg implements Runnable{
 			if(c){
 				Pac=pac[3];
 				c=!c;
-			}else
-				{
-					Pac=pac[4];
-					c=!c;
+			}else{
+				Pac=pac[4];
+				c=!c;
 				}
 			pathx--;
+			if(Map.maze[pathx][pathy]==3){Main.Eat=true;}//Palla grossa
+			Map.maze[pathx][pathy]=0;
 			try{Thread.sleep(250);}catch(Exception e){}
 		}
 	}
@@ -79,12 +81,13 @@ public class Pg implements Runnable{
 			if(c){
 				Pac=pac[5];
 				c=!c;
-			}else
-				{
-					Pac=pac[6];
-					c=!c;
+			}else{
+				Pac=pac[6];
+				c=!c;
 				}
 			pathy--;
+			if(Map.maze[pathx][pathy]==3){Main.Eat=true;}//Palla grossa
+			Map.maze[pathx][pathy]=0;
 			try{Thread.sleep(250);}catch(Exception e){}
 		}
 	}
@@ -96,12 +99,13 @@ public class Pg implements Runnable{
 			if(c){
 				Pac=pac[7];
 				c=!c;
-			}else
-				{
-					Pac=pac[8];
-					c=!c;
+			}else{
+				Pac=pac[8];
+				c=!c;
 				}
 			pathy++;
+			if(Map.maze[pathx][pathy]==3){Main.Eat=true;}//Palla grossa
+			Map.maze[pathx][pathy]=0;
 			try{Thread.sleep(250);}catch(Exception e){}
 		}
 

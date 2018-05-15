@@ -16,6 +16,9 @@ public class Map {
 			}
 		}
 
+
+		maze[1][1]=maze[26][1]=3;
+
 		maze[0][9]=maze[1][9]=maze[2][9]=maze[3][9]=maze[4][9]=maze[5][9]=1;
 		maze[5][10]=maze[5][11]=maze[5][12]=1;
 		maze[22][9]=maze[23][9]=maze[24][9]=maze[25][9]=maze[26][9]=maze[27][9]=1;

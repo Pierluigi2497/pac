@@ -19,6 +19,8 @@ public class Main{
 	  static Boolean gOver =false;
 	  static BufferedImage map;
 	  static BufferedImage Game;
+	  static int dots=0;
+	  static Boolean Eat=false;
 
 
 	  public static void main(String[] args) {

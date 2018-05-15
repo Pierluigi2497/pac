@@ -3,6 +3,7 @@ public class Ne implements Runnable {
 	public int pathx,pathy;
 	private BufferedImage[] i=new BufferedImage[13];
 	public BufferedImage n;
+	private int c=0;
 	public Ne(int x,int y,String a){
 		pathx=x;
 		pathy=y;
@@ -60,7 +61,7 @@ public class Ne implements Runnable {
 			if(Main.gOver){
 				break;
 			}
-
+			Eat();
 			Follow();
 
 				
@@ -69,16 +70,24 @@ public class Ne implements Runnable {
 	}
 
 	public void Follow() {
-		Boolean c=true;
 		if(pathx<Main.pg.pathx){
 			while(Map.maze[pathx+1][pathy]!=1&&pathx<Main.pg.pathx){
+				Eat();
 				try{Thread.sleep(300);}catch(Exception e){}
-				if(c){
+				if(c==0){
 					n=i[0];
-					c=!c;
-				}else{
+					c=0;
+				}else if(c==1){
 					n=i[1];
-					c=!c;
+					c=0;
+				}
+
+				else if(c==3){
+					n=i[8];
+					c=4;
+				}
+				else if(c==4){
+					n=i[9];
 				}
 				pathx++;
 				
@@ -86,13 +95,22 @@ public class Ne implements Runnable {
 		else
 			if(pathx>Main.pg.pathx){
 				while(Map.maze[pathx-1][pathy]!=1&&pathx>Main.pg.pathx){
+					Eat();
 					try{Thread.sleep(300);}catch(Exception e){}
-					if(c){
+					if(c==0){
 					n=i[2];
-					c=!c;
-				}else{
+					c=0;
+				}else if(c==1){
 					n=i[3];
-					c=!c;
+					c=0;
+				}
+
+				else if(c==3){
+					n=i[8];
+					c=4;
+				}
+				else if(c==4){
+					n=i[9];
 				}
 					pathx--;
 					
@@ -100,30 +118,50 @@ public class Ne implements Runnable {
 		else
 			if(pathy<Main.pg.pathy){
 				while(Map.maze[pathx][pathy+1]!=1&&pathy<Main.pg.pathy){
+					Eat();
 					try{Thread.sleep(300);}catch(Exception e){}
-					if(c){
+					if(c==0){
 						n=i[6];
-						c=!c;
-					}else{
+						c=0;
+					}else if(c==1){
 						n=i[7];
-						c=!c;
+						c=0;
 					}
+
+					else if(c==3){
+					n=i[8];
+					c=4;
+				}
+				else if(c==4){
+					n=i[9];
+				}
 				pathy++;
 				
 			}}
 		else
 			if(pathy>Main.pg.pathy){
 				while(Map.maze[pathx][pathy-1]!=1&&pathy>Main.pg.pathy){
+					Eat();
 					try{Thread.sleep(300);}catch(Exception e){}
-						if(c){
+						if(c==0){
 							n=i[4];
-							c=!c;
-						}else{
+							c=1;
+						}else if(c==1){
 							n=i[5];
-							c=!c;
+							c=0;
 						}
-					pathy--;
-					
+
+						else if(c==3){
+							n=i[8];
+							c=4;
+						}
+						else if(c==4){
+							n=i[9];
+						}
+
+						
+						pathy--;
+						
 				}}
 
 
@@ -134,6 +172,12 @@ public class Ne implements Runnable {
 
 		
 				
+	}
+
+	public void Eat(){
+		if(Main.Eat){
+			this.c=3;
+		}
 	}
 
 	
