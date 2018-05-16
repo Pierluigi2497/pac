@@ -1,4 +1,5 @@
 public class Map {
+	static int segnale=0;
 	static int x=28;
 	static int y=31;
 	public static int maze[][]=new int[x][y];
