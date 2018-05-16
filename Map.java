@@ -12,12 +12,19 @@ public class Map {
 					else
 					maze[i][l]=1;
 				else
-					maze[i][l]=2;//Palline
+					maze[i][l]=3;//Palline
 			}
 		}
 
 
-		maze[1][1]=maze[26][1]=3;
+
+		//POSIZIONAMENTO INCROCI
+		maze[6][1]=maze[21][1]=2;
+		maze[1][5]=maze[6][5]=maze[9][5]=maze[12][5]=maze[15][5]=maze[18][5]=maze[21][5]=maze[26][5]=2;
+		maze[6][8]=maze[21][8]=2;
+		maze[12][11]=maze[15][11]=2;
+
+		maze[1][1]=maze[26][1]=4;
 
 		maze[0][9]=maze[1][9]=maze[2][9]=maze[3][9]=maze[4][9]=maze[5][9]=1;
 		maze[5][10]=maze[5][11]=maze[5][12]=1;
@@ -49,6 +56,40 @@ public class Map {
 		maze[10][14]=maze[17][14]=1;
 		maze[10][15]=maze[17][15]=1;
 		maze[10][16]=maze[11][16]=maze[12][16]=maze[13][16]=maze[14][16]=maze[15][16]=maze[16][16]=maze[17][16]=1;
+		
+		maze[7][15]=maze[8][15]=maze[7][16]=maze[8][16]=maze[7][17]=maze[8][17]=maze[7][18]=maze[8][18]=maze[7][19]=maze[8][19]=1;
+
+		maze[19][15]=maze[20][15]=maze[19][16]=maze[20][16]=maze[19][17]=maze[20][17]=maze[19][18]=maze[20][18]=maze[19][19]=maze[20][19]=1;
+
+		maze[10][18]=maze[11][18]=maze[12][18]=maze[13][18]=maze[14][18]=maze[15][18]=maze[16][18]=maze[17][18]=1;
+		maze[10][19]=maze[11][19]=maze[12][19]=maze[13][19]=maze[14][19]=maze[15][19]=maze[16][19]=maze[17][19]=1;
+		maze[13][20]=maze[14][20]=maze[13][21]=maze[14][21]=maze[13][22]=maze[14][22]=1;
+
+		maze[2][21]=maze[3][21]=maze[4][21]=maze[5][21]=maze[2][22]=maze[3][22]=maze[4][22]=maze[5][22]=1;
+		maze[4][23]=maze[5][23]=maze[4][24]=maze[5][24]=maze[4][25]=maze[5][25]=1;
+
+		maze[7][21]=maze[8][21]=maze[9][21]=maze[10][21]=maze[11][21]=maze[7][22]=maze[8][22]=maze[9][22]=maze[10][22]=maze[11][22]=1;
+
+		maze[16][21]=maze[17][21]=maze[18][21]=maze[19][21]=maze[20][21]=maze[16][22]=maze[17][22]=maze[18][22]=maze[19][22]=maze[20][22]=1;
+
+		maze[22][21]=maze[23][21]=maze[24][21]=maze[25][21]=maze[22][22]=maze[23][22]=maze[24][22]=maze[25][22]=1;
+		maze[22][23]=maze[23][23]=maze[22][24]=maze[23][24]=maze[22][25]=maze[23][25]=1;
+
+		maze[7][24]=maze[8][24]=maze[7][25]=maze[8][25]=maze[7][26]=maze[8][26]=1;
+		maze[2][27]=maze[3][27]=maze[4][27]=maze[5][27]=maze[6][27]=maze[7][27]=maze[8][27]=maze[9][27]=maze[10][27]=maze[11][27]=1;
+		maze[2][28]=maze[3][28]=maze[4][28]=maze[5][28]=maze[6][28]=maze[7][28]=maze[8][28]=maze[9][28]=maze[10][28]=maze[11][28]=1;
+		
+		maze[1][24]=maze[2][24]=maze[1][25]=maze[2][25]=1;
+
+		maze[10][24]=maze[11][24]=maze[12][24]=maze[13][24]=maze[14][24]=maze[15][24]=maze[16][24]=maze[17][24]=1;
+		maze[10][25]=maze[11][25]=maze[12][25]=maze[13][25]=maze[14][25]=maze[15][25]=maze[16][25]=maze[17][25]=1;
+		maze[13][26]=maze[14][26]=maze[13][27]=maze[14][27]=maze[13][28]=maze[14][28]=1;
+
+		maze[19][24]=maze[20][24]=maze[19][25]=maze[20][25]=maze[19][26]=maze[20][26]=1;
+		maze[16][27]=maze[17][27]=maze[18][27]=maze[19][27]=maze[20][27]=maze[21][27]=maze[22][27]=maze[23][27]=maze[24][27]=maze[25][27]=1;
+		maze[16][28]=maze[17][28]=maze[18][28]=maze[19][28]=maze[20][28]=maze[21][28]=maze[22][28]=maze[23][28]=maze[24][28]=maze[25][28]=1;
+
+		maze[25][24]=maze[26][24]=maze[25][25]=maze[26][25]=1;
 		
 
 

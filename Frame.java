@@ -41,10 +41,10 @@ public class Frame extends JPanel implements Runnable {
 	                //Disegno Palline
 	             for(int i=0;i<Map.x;i++)
 	               		for(int l=0;l<Map.y;l++)
-	               			if(Map.maze[i][l]==2){
+	               			if(Map.maze[i][l]==3){
 	               				Main.dots++;
 	               				g.drawImage(dot,dX*i,dY*l,dX,dY,null);}
-	               			else if(Map.maze[i][l]==3){
+	               			else if(Map.maze[i][l]==4){
 	               				Main.dots++;
 	               				g.drawImage(Dot,dX*i,dY*l,dX,dY,null);
 	               			}
