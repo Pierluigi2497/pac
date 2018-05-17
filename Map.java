@@ -27,6 +27,8 @@ public class Map {
 
 		maze[1][1]=maze[26][1]=4;
 
+		
+
 		maze[0][9]=maze[1][9]=maze[2][9]=maze[3][9]=maze[4][9]=maze[5][9]=1;
 		maze[5][10]=maze[5][11]=maze[5][12]=1;
 		maze[22][9]=maze[23][9]=maze[24][9]=maze[25][9]=maze[26][9]=maze[27][9]=1;
@@ -91,6 +93,12 @@ public class Map {
 		maze[16][28]=maze[17][28]=maze[18][28]=maze[19][28]=maze[20][28]=maze[21][28]=maze[22][28]=maze[23][28]=maze[24][28]=maze[25][28]=1;
 
 		maze[25][24]=maze[26][24]=maze[25][25]=maze[26][25]=1;
+
+
+		maze[11][15]=maze[12][15]=maze[13][15]=maze[14][15]=maze[15][15]=maze[16][15]=0;
+		maze[11][14]=maze[12][14]=maze[13][14]=maze[14][14]=maze[15][14]=maze[16][14]=0;
+		maze[11][13]=maze[12][13]=maze[13][13]=maze[14][13]=maze[15][13]=maze[16][13]=0;
+		maze[13][12]=maze[14][12]=0;
 		
 
 

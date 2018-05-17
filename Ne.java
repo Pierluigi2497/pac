@@ -197,26 +197,26 @@ public class Ne implements Runnable {
 
 
 	public void esci() {
-		if(pathx<13&&Map.maze[pathx+1][pathy]==0){
-			while(Map.maze[pathx+1][pathy]==0&&pathx<13){
+		if(pathx<13&&Map.maze[pathx+1][pathy]!=1){
+			while(Map.maze[pathx+1][pathy]!=1&&pathx<13){
 				pathx++;
 				try{Thread.sleep(300);}catch(Exception e){}
 			}}
 			else
-			if(pathx>13&&Map.maze[pathx-1][pathy]==0){
-				while(Map.maze[pathx-1][pathy]==0&&pathx>13){
+			if(pathx>13&&Map.maze[pathx-1][pathy]!=1){
+				while(Map.maze[pathx-1][pathy]!=1&&pathx>13){
 					pathx--;
 					try{Thread.sleep(300);}catch(Exception e){}
 				}}
 		else
-		if(pathy<11&&Map.maze[pathx][pathy+1]==0){
-			while(Map.maze[pathx][pathy+1]==0&&pathy<11){
+		if(pathy<11&&Map.maze[pathx][pathy+1]!=1){
+			while(Map.maze[pathx][pathy+1]!=1&&pathy<11){
 				pathy++;
 				try{Thread.sleep(300);}catch(Exception e){}
 			}}
 			else
-			if(pathy>11&&Map.maze[pathx][pathy-1]==0){
-				while(Map.maze[pathx][pathy-1]==0&&pathy>11){
+			if(pathy>11&&Map.maze[pathx][pathy-1]!=1){
+				while(Map.maze[pathx][pathy-1]!=1&&pathy>11){
 					pathy--;
 					try{Thread.sleep(300);}catch(Exception e){}
 				}}
@@ -231,26 +231,26 @@ public class Ne implements Runnable {
 		if((d%2)==0){						//se pari si muoverà su asse x
 			d=(int)(Math.random()*10);		//ricalcolo
 			if((d%2)==0){					//se di nuovo pari andrà a destra
-				while(Map.maze[pathx+1][pathy]==0){
+				while(Map.maze[pathx+1][pathy]!=1){
 				pathx++;
 				try{Thread.sleep(300);}catch(Exception e){}}
 			}
 
 			else{							//se è dispari andrà a sinistra
-				while(Map.maze[pathx-1][pathy]==0){
+				while(Map.maze[pathx-1][pathy]!=1){
 					pathx--;
 					try{Thread.sleep(300);}catch(Exception e){}}}
 		}
 		else{								//se dispari si muoverà su asse y
 			d=(int)(Math.random()*10);		//ricalcolo
 			if((d%2)==0){					//se pari andrà in su
-				while(Map.maze[pathx][pathy-1]==0){
+				while(Map.maze[pathx][pathy-1]!=1){
 					pathy--;
 					try{Thread.sleep(300);}catch(Exception e){}}
 			}
 
 			else{							//se dispari andra in giù
-				while(Map.maze[pathx][pathy+1]==0){
+				while(Map.maze[pathx][pathy+1]!=1){
 				pathy++;
 				try{Thread.sleep(300);}catch(Exception e){}}
 			}
