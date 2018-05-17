@@ -2,9 +2,13 @@ import java.awt.image.BufferedImage;
 
 public class Pg implements Runnable{
 	public int pathx,pathy;
+	public int tX=0;  //Translate x
+	public int tY=0;  //Translate y
+	public int vel=200;//Inversa in ms
 	private BufferedImage[] death=new BufferedImage[13];//1 immagine trasparente
 	private BufferedImage[] pac=new BufferedImage[9];
-	static BufferedImage Pac;
+	public BufferedImage Pac;
+	private Boolean c=true;
 
 
 	public Pg(int x,int y){
@@ -41,72 +45,44 @@ public class Pg implements Runnable{
 	}
 
 	public void MoveDx(){
-		Boolean c=true;
-		while(Map.maze[pathx+1][pathy]!=1&&Main.cdir=='d'&&!Main.gOver){
-			if(c){
-				Pac=pac[1];
-				c=!c;
-			}else{
-				Pac=pac[2];
-				c=!c;
-				}
-			pathx++;
-			if(Map.maze[pathx][pathy]==4){Main.Eat=true;}//Palla grossa
-			Map.maze[pathx][pathy]=0;
-			try{Thread.sleep(250);}catch(Exception e){}
-			
+		if(Map.maze[pathx+1][pathy]!=1&&!Main.gOver){
+			Trans('d');
+			if(Map.maze[pathx][pathy]==5){Main.Eat=true;Map.maze[pathx][pathy]=0;} //Se mangia la palla grossa lui può mangiare i fantasmi e la palla diventa uno spazio vuoto 0
+			else if(Map.maze[pathx][pathy]==4){Map.maze[pathx][pathy]=0;}
+			else if(Map.maze[pathx][pathy]==2){Map.maze[pathx][pathy]=3;}			
 		}
 	}
 
 	public void MoveSx(){
-		Boolean c=true;
-		while(Map.maze[pathx-1][pathy]!=1&&Main.cdir=='a'&&!Main.gOver){
-			if(c){
-				Pac=pac[3];
-				c=!c;
-			}else{
-				Pac=pac[4];
-				c=!c;
-				}
-			pathx--;
-			if(Map.maze[pathx][pathy]==4){Main.Eat=true;}//Palla grossa
-			Map.maze[pathx][pathy]=0;
-			try{Thread.sleep(250);}catch(Exception e){}
+		if(Map.maze[pathx-1][pathy]!=1&&!Main.gOver){
+			Trans('a');
+			if(Map.maze[pathx][pathy]==5){Main.Eat=true;Map.maze[pathx][pathy]=0;}//Palla grossa
+			else if(Map.maze[pathx][pathy]==4){Map.maze[pathx][pathy]=0;}
+			else if(Map.maze[pathx][pathy]==2){Map.maze[pathx][pathy]=3;}
 		}
 	}
 
 	public void MoveUp(){
-		Boolean c=true;
-		while(Map.maze[pathx][pathy-1]!=1&&Main.cdir=='w'&&!Main.gOver){
-			if(c){
-				Pac=pac[5];
-				c=!c;
-			}else{
-				Pac=pac[6];
-				c=!c;
-				}
-			pathy--;
-			if(Map.maze[pathx][pathy]==4){Main.Eat=true;}//Palla grossa
-			Map.maze[pathx][pathy]=0;
-			try{Thread.sleep(250);}catch(Exception e){}
+		if(Map.maze[pathx][pathy-1]!=1&&!Main.gOver){
+			Trans('w');
+			if(Map.maze[pathx][pathy]==5){Main.Eat=true;Map.maze[pathx][pathy]=0;}
+			else if(Map.maze[pathx][pathy]==4){Map.maze[pathx][pathy]=0;}
+			else if(Map.maze[pathx][pathy]==2){Map.maze[pathx][pathy]=3;}
+				
 		}
 	}
 
 	public void MoveDw(){
 
-		Boolean c=true;
-		while(Map.maze[pathx][pathy+1]!=1&&Main.cdir=='s'&&!Main.gOver){
-			if(c){
-				Pac=pac[7];
-				c=!c;
-			}else{
-				Pac=pac[8];
-				c=!c;
-				}
-			pathy++;
-			if(Map.maze[pathx][pathy]==4){Main.Eat=true;}//Palla grossa
-			Map.maze[pathx][pathy]=0;
-			try{Thread.sleep(250);}catch(Exception e){}
+		
+		if(Map.maze[pathx][pathy+1]!=1&&!Main.gOver){
+			Trans('s');
+			if(Map.maze[pathx][pathy]==5){Main.Eat=true;Map.maze[pathx][pathy]=0;}//Palla grossa
+			else if(Map.maze[pathx][pathy]==4){Map.maze[pathx][pathy]=0;}
+			else if(Map.maze[pathx][pathy]==2){Map.maze[pathx][pathy]=3;}
+			
+					
+				
 		}
 
 	}
@@ -126,6 +102,95 @@ public class Pg implements Runnable{
 				case 's':MoveDw();break;
 				case 'w':MoveUp();break;
 			}
+		}
+	}
+
+	public Boolean Controllo(){
+		switch(Main.cdir){
+				case 'a':if(Map.maze[pathx-1][pathy]!=1) return true;
+				case 'd':if(Map.maze[pathx+1][pathy]!=1) return true;
+				case 's':if(Map.maze[pathx][pathy+1]!=1) return true;
+				case 'w':if(Map.maze[pathx][pathy-1]!=1) return true;
+			}
+			return false;
+	}
+
+
+	//Aumenta i pixel di un quadrato di array grafico(la grandezza di uno spostamento reale) per creare una transizione
+	public void Trans(char dir){
+		int v;
+		if(dir=='w'||dir=='s'){
+			v=vel/Frame.dY;
+			if(dir=='w'){
+				for(tY=0;Math.abs(tY)!=Frame.dY;tY--){
+					aSprite(dir);
+					try{Thread.sleep(v);}catch(Exception e){}
+				}
+				tY=0;
+				pathy--;}
+				else{
+					for(tY=0;Math.abs(tY)!=Frame.dY;tY++){
+						aSprite(dir);
+						try{Thread.sleep(v);}catch(Exception e){}
+					}
+					tY=0;
+					pathy++;}
+			}
+		else {
+			v=vel/Frame.dX;
+			if(dir=='a'){
+				for(tX=0;Math.abs(tX)!=Frame.dX;tX--){
+					aSprite(dir);
+					try{Thread.sleep(v);}catch(Exception e){}
+				}
+				tX=0;
+				pathx--;
+				}
+			else{
+				for(tX=0;Math.abs(tX)!=Frame.dX;tX++){
+					aSprite(dir);
+					try{Thread.sleep(v);}catch(Exception e){}
+				}
+				tX=0;
+				pathx++;
+			}}
+
+			
+
+
+	}
+	
+	//Alternate sprite
+	public void aSprite(char dir){
+		switch(dir){
+			case 'd':{if(c){
+						Pac=pac[1];
+						c=!c;
+				      }else{
+						Pac=pac[2];
+						c=!c;
+					 }}break;
+			case 'a':{if(c){
+						Pac=pac[3];
+						c=!c;
+					  }else{
+						Pac=pac[4];
+						c=!c;
+						}}break;
+			case 'w':{if(c){
+						Pac=pac[5];
+						c=!c;
+					  }else{
+						Pac=pac[6];
+						c=!c;
+						}}break;
+			case 's':{if(c){
+						Pac=pac[7];
+						c=!c;
+					  }else{
+						Pac=pac[8];
+						c=!c;
+						}}break;
 		}
 	}
 

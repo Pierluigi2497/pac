@@ -19,8 +19,15 @@ public class Frame extends JPanel implements Runnable {
 	private BufferedImage image;
 	private BufferedImage dot;
 	private BufferedImage Dot;
-	private int dX;
-	private int dY;
+	static int dX;
+	static int dY;
+
+	public Frame(){
+		dX=(this.getWidth()/Map.x);
+
+		dY=(this.getHeight()/Map.y);
+	}
+
 	public void run(){
 		dot=Main.img.getSubimage(137,33,12,12);
 		Dot=Main.img.getSubimage(154,33,12,12);
@@ -41,10 +48,10 @@ public class Frame extends JPanel implements Runnable {
 	                //Disegno Palline
 	             for(int i=0;i<Map.x;i++)
 	               		for(int l=0;l<Map.y;l++)
-	               			if(Map.maze[i][l]==3){
+	               			if(Map.maze[i][l]==2||Map.maze[i][l]==4){
 	               				Main.dots++;
 	               				g.drawImage(dot,dX*i,dY*l,dX,dY,null);}
-	               			else if(Map.maze[i][l]==4){
+	               			else if(Map.maze[i][l]==5){
 	               				Main.dots++;
 	               				g.drawImage(Dot,dX*i,dY*l,dX,dY,null);
 	               			}
@@ -52,10 +59,9 @@ public class Frame extends JPanel implements Runnable {
 
 	               	if(!Main.gOver)
 	               	 for(int i=0;i<4;i++)
-	                	g.drawImage(Main.ne[i].n,dX * Main.ne[i].pathx,dY * Main.ne[i].pathy,dX,dY,null);
-	                 g.drawImage(Main.pg.Pac,dX * Main.pg.pathx,dY * Main.pg.pathy,dX,dY,null);
-	               
-	               		
+	                	g.drawImage(Main.ne[i].n,(dX * Main.ne[i].pathx)+Main.ne[i].tX,(dY * Main.ne[i].pathy)+Main.ne[i].tY,dX,dY,null);
+	                 g.drawImage(Main.pg.Pac,(dX * Main.pg.pathx)+Main.pg.tX,(dY * Main.pg.pathy)+Main.pg.tY,dX,dY,null);
+	                         		
 
 
 	               	}

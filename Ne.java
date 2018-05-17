@@ -1,15 +1,19 @@
 import java.awt.image.BufferedImage;
 public class Ne implements Runnable {
 	public int pathx,pathy;
+	private int vel=250;
+	public int tX=0;  //Translate x
+	public int tY=0;  //Translate y
 	private BufferedImage[] i=new BufferedImage[13];
 	public BufferedImage n;
-	private int c=0;
+	private Boolean c=true;
 	private boolean nuovo,uscito;
 	public Ne(int x,int y,String a){
 		pathx=x;
 		pathy=y;
 		nuovo=true;
 		uscito=false;
+		//0-1 Destra  2-3 Sinistra  4-5 Sopra  6-7 Sotto  8-9 Blu  10-11 Bianco-Blu  12 Trasparente
 		if(a=="red"){
 			i[0]=Main.img.getSubimage(4,65,14,14);
 			i[1]=Main.img.getSubimage(20,65,14,14);
@@ -54,172 +58,94 @@ public class Ne implements Runnable {
 		i[9]=Main.img.getSubimage(148,65,14,14);
 		i[10]=Main.img.getSubimage(164,65,14,14);
 		i[11]=Main.img.getSubimage(180,65,14,14);
-		i[12]=Main.img.getSubimage(0,0,1,1);//trasparente
+		i[12]=Main.img.getSubimage(0,0,1,1);
 		n=i[0];
 			
 	}
 	
 	public void run(){
-		if(nuovo){	
-			System.out.println(""+uscito);										//aggiungere nella mappa posizioni particolari "nodi/incroci" dove i nemici possono decidere di girare 
-			for(;!uscito;){System.out.println(""+uscito);esci();}							//consentire al pg e ai fantasmini di passare sui nodi
+		if(nuovo){										//aggiungere nella mappa posizioni particolari "nodi/incroci" dove i nemici possono decidere di girare 
+			for(;!uscito;){esci();}							//consentire al pg e ai fantasmini di passare sui nodi
 			nuovo=false;
-			Map.segnale++;
-			System.out.println("incrementa segnale");	
+			Map.segnale++;	
 			if(Map.segnale==4)Map.maze[13][12]=Map.maze[14][12]=1;}
 
 		for(;;){
 			if(Main.gOver){
 				break;
 			}
-			if(radar(pathx,pathy)){	
+			if(radar()){	
 				Follow();
-				try{Thread.sleep(300);}catch(Exception e){}}
+				try{Thread.sleep(20);}catch(Exception e){}
+				}
 			else{	
 				cieco();
-				try{Thread.sleep(300);}catch(Exception e){}}
+
+				}
 
 				
-			try{Thread.sleep(300);}catch(Exception e){}
+			
 		}
 	}
 
 	public void Follow() {
-		if(pathx<Main.pg.pathx){
-			while(Map.maze[pathx+1][pathy]!=1&&pathx<Main.pg.pathx){
-				Eat();
-				try{Thread.sleep(300);}catch(Exception e){}
-				if(c==0){
-					n=i[0];
-					c=0;
-				}else if(c==1){
-					n=i[1];
-					c=0;
-				}
+		if(Map.maze[pathx+1][pathy]!=1&&pathx<Main.pg.pathx){
+			Trans('d');
 
-				else if(c==3){
-					n=i[8];
-					c=4;
-				}
-				else if(c==4){
-					n=i[9];
-				}
-				pathx++;
-				
-			}}
-		else
-			if(pathx>Main.pg.pathx){
-				while(Map.maze[pathx-1][pathy]!=1&&pathx>Main.pg.pathx){
-					Eat();
-					try{Thread.sleep(300);}catch(Exception e){}
-					if(c==0){
-					n=i[2];
-					c=0;
-				}else if(c==1){
-					n=i[3];
-					c=0;
-				}
-
-				else if(c==3){
-					n=i[8];
-					c=4;
-				}
-				else if(c==4){
-					n=i[9];
-				}
-					pathx--;
-					
-				}}
-		else
-			if(pathy<Main.pg.pathy){
-				while(Map.maze[pathx][pathy+1]!=1&&pathy<Main.pg.pathy){
-					Eat();
-					try{Thread.sleep(300);}catch(Exception e){}
-					if(c==0){
-						n=i[6];
-						c=0;
-					}else if(c==1){
-						n=i[7];
-						c=0;
+				if(pathy==Main.pg.pathy&&pathx==Main.pg.pathx){
+					Main.gOver=true;
 					}
-
-					else if(c==3){
-					n=i[8];
-					c=4;
-				}
-				else if(c==4){
-					n=i[9];
-				}
-				pathy++;
 				
-			}}
+			}
 		else
-			if(pathy>Main.pg.pathy){
-				while(Map.maze[pathx][pathy-1]!=1&&pathy>Main.pg.pathy){
-					Eat();
-					try{Thread.sleep(300);}catch(Exception e){}
-						if(c==0){
-							n=i[4];
-							c=1;
-						}else if(c==1){
-							n=i[5];
-							c=0;
-						}
+			if(Map.maze[pathx-1][pathy]!=1&&pathx>Main.pg.pathx){
+				Trans('a');
 
-						else if(c==3){
-							n=i[8];
-							c=4;
-						}
-						else if(c==4){
-							n=i[9];
-						}
-
-						
-						pathy--;
-						
-				}}
-
-
+					if(pathy==Main.pg.pathy&&pathx==Main.pg.pathx){
+						Main.gOver=true;
+					}
+					
+				}
+		else
+			if(Map.maze[pathx][pathy+1]!=1&&pathy<Main.pg.pathy){
+				Trans('s');
 
 				if(pathy==Main.pg.pathy&&pathx==Main.pg.pathx){
 					Main.gOver=true;
 				}
+				
+			}
+		else
+			if(Map.maze[pathx][pathy-1]!=1&&pathy>Main.pg.pathy){
+				Trans('w');
+
+						if(pathy==Main.pg.pathy&&pathx==Main.pg.pathx){
+							Main.gOver=true;
+						}
+						
+				}
+
+
+
+				
 
 		
 				
 	}
 
-	public void Eat(){
-		if(Main.Eat){
-			this.c=3;
-		}
-	}
-
 
 	public void esci() {
-		if(pathx<13&&Map.maze[pathx+1][pathy]!=1){
-			while(Map.maze[pathx+1][pathy]!=1&&pathx<13){
-				pathx++;
-				try{Thread.sleep(300);}catch(Exception e){}
-			}}
-			else
-			if(pathx>13&&Map.maze[pathx-1][pathy]!=1){
-				while(Map.maze[pathx-1][pathy]!=1&&pathx>13){
-					pathx--;
-					try{Thread.sleep(300);}catch(Exception e){}
-				}}
+		if(pathx<13&&Map.maze[pathx+1][pathy]!=1)
+			Trans('d');
 		else
-		if(pathy<11&&Map.maze[pathx][pathy+1]!=1){
-			while(Map.maze[pathx][pathy+1]!=1&&pathy<11){
-				pathy++;
-				try{Thread.sleep(300);}catch(Exception e){}
-			}}
-			else
-			if(pathy>11&&Map.maze[pathx][pathy-1]!=1){
-				while(Map.maze[pathx][pathy-1]!=1&&pathy>11){
-					pathy--;
-					try{Thread.sleep(300);}catch(Exception e){}
-				}}
+			if(pathx>13&&Map.maze[pathx-1][pathy]!=1)
+				Trans('a');
+		else
+			if(pathy<11&&Map.maze[pathx][pathy+1]!=1)
+				Trans('s');			
+		else
+			if(pathy>11&&Map.maze[pathx][pathy-1]!=1)
+				Trans('w');
 		if(pathx==13&&pathy==11)uscito=true;
 
 	}
@@ -230,48 +156,122 @@ public class Ne implements Runnable {
 
 		if((d%2)==0){						//se pari si muoverà su asse x
 			d=(int)(Math.random()*10);		//ricalcolo
-			if((d%2)==0){					//se di nuovo pari andrà a destra
-				while(Map.maze[pathx+1][pathy]!=1){
-				pathx++;
-				try{Thread.sleep(300);}catch(Exception e){}}
-			}
+			if((d%2)==0)					//se di nuovo pari andrà a destra
+				if(Map.maze[pathx+1][pathy]!=1)
+					Trans('d');}
 
-			else{							//se è dispari andrà a sinistra
-				while(Map.maze[pathx-1][pathy]!=1){
-					pathx--;
-					try{Thread.sleep(300);}catch(Exception e){}}}
-		}
+			else						//se è dispari andrà a sinistra
+				if(Map.maze[pathx-1][pathy]!=1)
+					Trans('a');
 		else{								//se dispari si muoverà su asse y
 			d=(int)(Math.random()*10);		//ricalcolo
 			if((d%2)==0){					//se pari andrà in su
-				while(Map.maze[pathx][pathy-1]!=1){
-					pathy--;
-					try{Thread.sleep(300);}catch(Exception e){}}
+				if(Map.maze[pathx][pathy-1]!=1)
+					Trans('w');
 			}
 
 			else{							//se dispari andra in giù
-				while(Map.maze[pathx][pathy+1]!=1){
-				pathy++;
-				try{Thread.sleep(300);}catch(Exception e){}}
+				if(Map.maze[pathx][pathy+1]!=1)
+					Trans('s');
 			}
 		}								
 	}
 
-	public boolean radar(int posx,int posy){
-		int x,y,i,j,r;
-		r=9;			//range
-		i=j=0;			//indici
-		x=posx-4;	
-		y=posy-4;
-		for(;i<r;i++,x++){
-			for(;j<r;j++,y++){
-				if(Main.pg.pathx==x&&Main.pg.pathy==y){
-					return true;
+	public boolean radar(){
+		int r;
+		r=15;			//range
+
+		//Se rientra nel raggio
+		if(Math.abs(pathx-Main.pg.pathx)<(r/2)&&Math.abs(pathy-Main.pg.pathy)<(r/2))
+			return true;
+		else
+			return false;
+	}
+
+	//Aumenta i pixel di un quadrato di array grafico(la grandezza di uno spostamento reale) per creare una transizione
+	public void Trans(char dir){
+		int v;
+		if(dir=='w'||dir=='s'){
+			v=vel/Frame.dY;
+			
+			if(dir=='w'){
+				for(tY=0;Math.abs(tY)!=Frame.dY;tY--){
+					aSprite(dir);
+					try{Thread.sleep(v);}catch(Exception e){}
 				}
+				tY=0;
+				pathy--;}
+				else{
+					for(tY=0;Math.abs(tY)!=Frame.dY;tY++){
+						aSprite(dir);
+						try{Thread.sleep(v);}catch(Exception e){}
+					}
+					tY=0;
+					pathy++;}
 			}
+		else {
+			v=vel/Frame.dX;
+			if(dir=='a'){
+				for(tX=0;Math.abs(tX)!=Frame.dX;tX--){
+					aSprite(dir);
+					try{Thread.sleep(v);}catch(Exception e){}
+				}
+				tX=0;
+				pathx--;
+				System.out.println(pathx);}
+			else{
+				for(tX=0;Math.abs(tX)!=Frame.dX;tX++){
+					aSprite(dir);
+					try{Thread.sleep(v);}catch(Exception e){}
+				}
+				tX=0;
+				pathx++;
+			}}
+
+			
+
+
+	}
+
+	public void aSprite(char dir){
+		//e=eatable Mangiabile		q=Quasi Mangiabile
+		switch(dir){
+			case 'w':{if(c){
+						n=i[4];
+						c=!c;
+					  }else{
+						n=i[5];
+						c=!c;
+						}}break;
+			case 'a':{if(c){
+						n=i[2];
+						c=!c;
+					  }else{
+						n=i[3];
+						c=!c;
+						}}break;
+			case 'd':{if(c){
+						n=i[0];
+						c=!c;
+					  }else{
+						n=i[1];
+						c=!c;
+						}}break;
+			case 's':{if(c){
+						n=i[6];
+						c=!c;
+					  }else{
+						n=i[7];
+						c=!c;
+						}}break;
+			
 		}
-		return false;
+
+
+
+
+		}
 	}
 
 	
-}
+

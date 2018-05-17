@@ -2,6 +2,7 @@ public class Map {
 	static int segnale=0;
 	static int x=28;
 	static int y=31;
+	//0-Vuoto  1-Muro  2-IncrocioVisibile  3-IncrocioInvisibile  4-Palline  5-Palla
 	public static int maze[][]=new int[x][y];
 
 	public Map(){
@@ -13,7 +14,7 @@ public class Map {
 					else
 					maze[i][l]=1;
 				else
-					maze[i][l]=3;//Palline
+					maze[i][l]=4;//Palline
 			}
 		}
 
@@ -23,6 +24,12 @@ public class Map {
 		maze[6][1]=maze[21][1]=2;
 		maze[1][5]=maze[6][5]=maze[9][5]=maze[12][5]=maze[15][5]=maze[18][5]=maze[21][5]=maze[26][5]=2;
 		maze[6][8]=maze[21][8]=2;
+		maze[6][14]=maze[21][14]=maze[9][14]=maze[18][14]=2;
+		maze[9][17]=maze[18][17]=2;
+		maze[6][20]=maze[9][20]=maze[18][20]=maze[21][20]=2;
+		maze[6][23]=maze[9][23]=maze[12][23]=maze[15][23]=maze[18][23]=maze[21][23]=2;
+		maze[3][26]=maze[24][26]=2;
+		maze[12][29]=maze[15][29]=2;
 		maze[12][11]=maze[15][11]=2;
 
 		maze[1][1]=maze[26][1]=4;
