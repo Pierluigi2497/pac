@@ -56,7 +56,6 @@ public class Main{
 		  n[1].start();
 		  n[2].start();
 		  n[3].start();
-		  
 	  }
 	   
 }

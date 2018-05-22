@@ -24,15 +24,17 @@ public class Map {
 		maze[6][1]=maze[21][1]=2;
 		maze[1][5]=maze[6][5]=maze[9][5]=maze[12][5]=maze[15][5]=maze[18][5]=maze[21][5]=maze[26][5]=2;
 		maze[6][8]=maze[21][8]=2;
+		maze[12][11]=maze[15][11]=2;
+		maze[13][13]=maze[14][13]=3;
+
 		maze[6][14]=maze[21][14]=maze[9][14]=maze[18][14]=2;
 		maze[9][17]=maze[18][17]=2;
 		maze[6][20]=maze[9][20]=maze[18][20]=maze[21][20]=2;
 		maze[6][23]=maze[9][23]=maze[12][23]=maze[15][23]=maze[18][23]=maze[21][23]=2;
 		maze[3][26]=maze[24][26]=2;
 		maze[12][29]=maze[15][29]=2;
-		maze[12][11]=maze[15][11]=2;
 
-		maze[1][1]=maze[26][1]=4;
+		maze[1][1]=maze[26][1]=5;				//pallagrossa
 
 		
 
@@ -104,14 +106,16 @@ public class Map {
 
 		maze[11][15]=maze[12][15]=maze[13][15]=maze[14][15]=maze[15][15]=maze[16][15]=0;
 		maze[11][14]=maze[12][14]=maze[13][14]=maze[14][14]=maze[15][14]=maze[16][14]=0;
-		maze[11][13]=maze[12][13]=maze[13][13]=maze[14][13]=maze[15][13]=maze[16][13]=0;
+		maze[11][13]=maze[12][13]=maze[15][13]=maze[16][13]=0;
 		maze[13][12]=maze[14][12]=0;
 		
+		maze[0][10]=maze[1][10]=maze[2][10]=maze[3][10]=maze[4][10]=maze[23][10]=maze[24][10]=maze[25][10]=maze[26][10]=maze[27][10]=0;
+		maze[0][11]=maze[1][11]=maze[2][11]=maze[3][11]=maze[4][11]=maze[23][11]=maze[24][11]=maze[25][11]=maze[26][11]=maze[27][11]=0;
+		maze[0][12]=maze[1][12]=maze[2][12]=maze[3][12]=maze[4][12]=maze[23][12]=maze[24][12]=maze[25][12]=maze[26][12]=maze[27][12]=0;
 
-
-		
-		
-
+		maze[0][16]=maze[1][16]=maze[2][16]=maze[3][16]=maze[4][16]=maze[23][16]=maze[24][16]=maze[25][16]=maze[26][16]=maze[27][16]=0;		
+		maze[0][17]=maze[1][17]=maze[2][17]=maze[3][17]=maze[4][17]=maze[23][17]=maze[24][17]=maze[25][17]=maze[26][17]=maze[27][17]=0;
+		maze[0][18]=maze[1][18]=maze[2][18]=maze[3][18]=maze[4][18]=maze[23][18]=maze[24][18]=maze[25][18]=maze[26][18]=maze[27][18]=0;
 		
 	}
 }

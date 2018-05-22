@@ -30,7 +30,7 @@ public class Frame extends JPanel implements Runnable {
 
 	public void run(){
 		dot=Main.img.getSubimage(137,33,12,12);
-		Dot=Main.img.getSubimage(154,33,12,12);
+		Dot=Main.img.getSubimage(154,31,12,12);
 		for(;;){
 		upD();
 		Main.dots=0;

@@ -8,6 +8,7 @@ public class Ne implements Runnable {
 	public BufferedImage n;
 	private Boolean c=true;
 	private boolean nuovo,uscito;
+	private char ldir;	//last direction (l'ultima rotta che ha preso il png)
 	public Ne(int x,int y,String a){
 		pathx=x;
 		pathy=y;
@@ -64,22 +65,41 @@ public class Ne implements Runnable {
 	}
 	
 	public void run(){
+		System.out.println("partito");
+		//AZIONI PRELIMINARI
 		if(nuovo){										//aggiungere nella mappa posizioni particolari "nodi/incroci" dove i nemici possono decidere di girare 
-			for(;!uscito;){esci();}							//consentire al pg e ai fantasmini di passare sui nodi
+			for(;uscito!=true;){corri(esci());if(Map.segnale==4)Map.maze[13][12]=Map.maze[14][12]=1;}							
 			nuovo=false;
-			Map.segnale++;	
-			if(Map.segnale==4)Map.maze[13][12]=Map.maze[14][12]=1;}
-
+			
+			System.out.println(""+Map.segnale);	
+			
+			System.out.println("uscito");}				
+		//corri(cieco());									//fa un ciclo di cieco per trovare la direzione in cui muoversi e andare in quella
+		//SVOLGIMENTO
 		for(;;){
 			if(Main.gOver){
 				break;
-			}
+			} 
+
+			if(Map.maze[pathx][pathy]==2||Map.maze[pathx][pathy]==3){ //SE INCONTRA UNNODO
+						if(radar()){	
+							corri(Follow());
+							try{Thread.sleep(20);}catch(Exception e){}
+						}
+						else{	
+							char a=cieco();
+							System.out.println(a);
+							corri(a);
+						}
+					}
+
 			if(radar()){	
-				Follow();
+				corri(Follow());
 				try{Thread.sleep(20);}catch(Exception e){}
 				}
 			else{	
-				cieco();
+				char a=cieco();
+				corri(a);
 
 				}
 
@@ -88,93 +108,92 @@ public class Ne implements Runnable {
 		}
 	}
 
-	public void Follow() {
+	public char Follow() {
 		if(Map.maze[pathx+1][pathy]!=1&&pathx<Main.pg.pathx){
-			Trans('d');
+			return('d');
 
-				if(pathy==Main.pg.pathy&&pathx==Main.pg.pathx){
-					Main.gOver=true;
-					}
+				//if(pathy==Main.pg.pathy&&pathx==Main.pg.pathx){
+				//	Main.gOver=true;
+				//	}
 				
 			}
 		else
 			if(Map.maze[pathx-1][pathy]!=1&&pathx>Main.pg.pathx){
-				Trans('a');
+				return('a');
 
-					if(pathy==Main.pg.pathy&&pathx==Main.pg.pathx){
-						Main.gOver=true;
-					}
+				//	if(pathy==Main.pg.pathy&&pathx==Main.pg.pathx){
+				//		Main.gOver=true;
+				//	}
 					
 				}
 		else
 			if(Map.maze[pathx][pathy+1]!=1&&pathy<Main.pg.pathy){
-				Trans('s');
+				return('s');
 
-				if(pathy==Main.pg.pathy&&pathx==Main.pg.pathx){
-					Main.gOver=true;
-				}
+				//if(pathy==Main.pg.pathy&&pathx==Main.pg.pathx){
+				//	Main.gOver=true;
+				//}
 				
 			}
 		else
 			if(Map.maze[pathx][pathy-1]!=1&&pathy>Main.pg.pathy){
-				Trans('w');
+				return('w');
 
-						if(pathy==Main.pg.pathy&&pathx==Main.pg.pathx){
-							Main.gOver=true;
-						}
+				//		if(pathy==Main.pg.pathy&&pathx==Main.pg.pathx){
+				//			Main.gOver=true;
+				//		}
 						
 				}
+		else{return 'o';}	
+	}
 
 
-
-				
-
+	public char esci() {
+		if(pathy==11){uscito=true;Map.segnale++;return 'o';}
 		
-				
+
+		if(Map.maze[pathx][pathy]==3){
+			return('w');}
+
+		else{
+			if(Map.maze[pathx][pathy-1]!=1&&pathy>11){
+				return('w');}
+			else
+				if(Map.maze[pathx][pathy+1]!=1&&pathy<11){
+					return('s');}
+			else
+				if(Map.maze[pathx+1][pathy]!=1&&pathx<13){
+					return('d');}
+			else
+				if(Map.maze[pathx-1][pathy]!=1&&pathx>13){
+					return('a');}
+		}
+		return 'o';
 	}
+	
 
-
-	public void esci() {
-		if(pathx<13&&Map.maze[pathx+1][pathy]!=1)
-			Trans('d');
-		else
-			if(pathx>13&&Map.maze[pathx-1][pathy]!=1)
-				Trans('a');
-		else
-			if(pathy<11&&Map.maze[pathx][pathy+1]!=1)
-				Trans('s');			
-		else
-			if(pathy>11&&Map.maze[pathx][pathy-1]!=1)
-				Trans('w');
-		if(pathx==13&&pathy==11)uscito=true;
-
-	}
-
-	public void cieco(){
+	public char cieco(){							//funzione che trova una direzione da prendere per il png in maniera casuale
 		int d;
-		d=(int)(Math.random()*10);			//d=decisione, numero casuale che determinerà la direzione del nemico in base a questi criteri: 
-
-		if((d%2)==0){						//se pari si muoverà su asse x
-			d=(int)(Math.random()*10);		//ricalcolo
-			if((d%2)==0)					//se di nuovo pari andrà a destra
-				if(Map.maze[pathx+1][pathy]!=1)
-					Trans('d');}
-
-			else						//se è dispari andrà a sinistra
-				if(Map.maze[pathx-1][pathy]!=1)
-					Trans('a');
-		else{								//se dispari si muoverà su asse y
-			d=(int)(Math.random()*10);		//ricalcolo
-			if((d%2)==0){					//se pari andrà in su
-				if(Map.maze[pathx][pathy-1]!=1)
-					Trans('w');
+		d=(int)(Math.random()*10);
+		d++;					//d=decisione, numero casuale che determinerà la direzione del nemico in base a questi criteri: 
+		if((d%2)==0){								//se pari si muoverà su asse x
+			d=(int)(Math.random()*10);
+			d++;									//ricalcolo
+			if((d%2)==0){							//se di nuovo pari andrà a destra
+				if(Map.maze[pathx+1][pathy]!=1)return 'd';}
+			else									//se è dispari andrà a sinistra
+				if(Map.maze[pathx-1][pathy]!=1)return'a';}
+		else{										//se dispari si muoverà su asse y
+			d=(int)(Math.random()*10);	
+			d++;									//ricalcolo
+			if((d%2)==0){							//se pari andrà in su
+				if(Map.maze[pathx][pathy-1]!=1)return'w';
 			}
-
-			else{							//se dispari andra in giù
-				if(Map.maze[pathx][pathy+1]!=1)
-					Trans('s');
+			else{									//se dispari andra in giù
+				if(Map.maze[pathx][pathy+1]!=1)return's';
 			}
-		}								
+		}
+		return 'o';								
 	}
 
 	public boolean radar(){
@@ -191,47 +210,66 @@ public class Ne implements Runnable {
 	//Aumenta i pixel di un quadrato di array grafico(la grandezza di uno spostamento reale) per creare una transizione
 	public void Trans(char dir){
 		int v;
+
+		
+
 		if(dir=='w'||dir=='s'){
 			v=vel/Frame.dY;
 			
 			if(dir=='w'){
-				for(tY=0;Math.abs(tY)!=Frame.dY;tY--){
-					aSprite(dir);
-					try{Thread.sleep(v);}catch(Exception e){}
-				}
-				tY=0;
-				pathy--;}
-				else{
-					for(tY=0;Math.abs(tY)!=Frame.dY;tY++){
+				while(Map.maze[pathx][pathy-1]!=1){
+					for(tY=0;Math.abs(tY)!=Frame.dY;tY--){
 						aSprite(dir);
 						try{Thread.sleep(v);}catch(Exception e){}
 					}
 					tY=0;
-					pathy++;}
+					pathy--;
+					if(Map.maze[pathx][pathy]==2||Map.maze[pathx][pathy]==3)
+						break;}
+				
+			}
+				else{
+					while(Map.maze[pathx][pathy+1]!=1){
+						for(tY=0;Math.abs(tY)!=Frame.dY;tY++){
+							aSprite(dir);
+							try{Thread.sleep(v);}catch(Exception e){}
+						}
+						tY=0;
+						pathy++;
+						if(Map.maze[pathx][pathy]==2||Map.maze[pathx][pathy]==3)
+							break;
+					}
+
+				}
 			}
 		else {
 			v=vel/Frame.dX;
 			if(dir=='a'){
-				for(tX=0;Math.abs(tX)!=Frame.dX;tX--){
-					aSprite(dir);
-					try{Thread.sleep(v);}catch(Exception e){}
+				while(Map.maze[pathx-1][pathy]!=1){
+					for(tX=0;Math.abs(tX)!=Frame.dX;tX--){
+						aSprite(dir);
+						try{Thread.sleep(v);}catch(Exception e){}
+					}
+					tX=0;
+					pathx--;
+					if(Map.maze[pathx][pathy]==2||Map.maze[pathx][pathy]==3)
+						break;
 				}
-				tX=0;
-				pathx--;
-				System.out.println(pathx);}
+			}
 			else{
-				for(tX=0;Math.abs(tX)!=Frame.dX;tX++){
-					aSprite(dir);
-					try{Thread.sleep(v);}catch(Exception e){}
+				while(Map.maze[pathx+1][pathy]!=1){
+					for(tX=0;Math.abs(tX)!=Frame.dX;tX++){
+						aSprite(dir);
+						try{Thread.sleep(v);}catch(Exception e){}
+					}
+					tX=0;
+					pathx++;
+					if(Map.maze[pathx][pathy]==2||Map.maze[pathx][pathy]==3)
+						break;
 				}
-				tX=0;
-				pathx++;
-			}}
-
-			
-
-
-	}
+			}
+		}
+}
 
 	public void aSprite(char dir){
 		//e=eatable Mangiabile		q=Quasi Mangiabile
@@ -265,12 +303,35 @@ public class Ne implements Runnable {
 						c=!c;
 						}}break;
 			
+			}
 		}
 
 
+		public void corri(char direzione){												//Valori Direzione:
+																						//w=su  d=destra  s=giù  a=sinistra
+			switch(direzione){
+				case 'w':{Trans('w');
+						if(pathy==Main.pg.pathy&&pathx==Main.pg.pathx){
+							Main.gOver=true;
+						}}break;
 
+				case 'd':{Trans('d');
+						if(pathy==Main.pg.pathy&&pathx==Main.pg.pathx){
+							Main.gOver=true;
+						}}break;
 
+				case 's':{Trans('s');
+						if(pathy==Main.pg.pathy&&pathx==Main.pg.pathx){
+							Main.gOver=true;
+						}}break;
+
+				case 'a':{Trans('a');
+						if(pathy==Main.pg.pathy&&pathx==Main.pg.pathx){
+							Main.gOver=true;
+						}}break;
+			}		
 		}
+
 	}
 
 	

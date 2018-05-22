@@ -134,8 +134,10 @@ public class Pg implements Runnable{
 						try{Thread.sleep(v);}catch(Exception e){}
 					}
 					tY=0;
-					pathy++;}
-			}
+					pathy++;
+				}
+		}
+
 		else {
 			v=vel/Frame.dX;
 			if(dir=='a'){
@@ -144,16 +146,16 @@ public class Pg implements Runnable{
 					try{Thread.sleep(v);}catch(Exception e){}
 				}
 				tX=0;
-				pathx--;
-				}
+				try{pathx--;}catch(Exception e){pathx=26;}}
 			else{
 				for(tX=0;Math.abs(tX)!=Frame.dX;tX++){
 					aSprite(dir);
 					try{Thread.sleep(v);}catch(Exception e){}
 				}
 				tX=0;
-				pathx++;
-			}}
+				try{pathx++;}catch(Exception e){pathx=1;}
+			}
+		}
 
 			
 
