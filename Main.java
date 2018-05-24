@@ -53,9 +53,9 @@ public class Main{
 		  p.start();
 		  try{Thread.sleep(100);}catch(Exception e){}
 		  n[0].start();
-		//  n[1].start();
-		 // n[2].start();
-		  //n[3].start();
+		  n[1].start();
+		  n[2].start();
+		  n[3].start();
 	  }
 	   
 }
