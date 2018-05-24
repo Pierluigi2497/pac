@@ -45,21 +45,23 @@ public class Pg implements Runnable{
 	}
 
 	public void MoveDx(){
-		if(Map.maze[pathx+1][pathy]!=1&&!Main.gOver){
-			Trans('d');
-			if(Map.maze[pathx][pathy]==5){Main.Eat=true;Map.maze[pathx][pathy]=0;} //Se mangia la palla grossa lui può mangiare i fantasmi e la palla diventa uno spazio vuoto 0
-			else if(Map.maze[pathx][pathy]==4){Map.maze[pathx][pathy]=0;}
-			else if(Map.maze[pathx][pathy]==2){Map.maze[pathx][pathy]=3;}			
-		}
+		try{
+			if(Map.maze[pathx+1][pathy]!=1&&!Main.gOver){
+				Trans('d');
+				if(Map.maze[pathx][pathy]==5){Main.Eat=true;Map.maze[pathx][pathy]=0;} //Se mangia la palla grossa lui può mangiare i fantasmi e la palla diventa uno spazio vuoto 0
+				else if(Map.maze[pathx][pathy]==4){Map.maze[pathx][pathy]=0;}
+				else if(Map.maze[pathx][pathy]==2){Map.maze[pathx][pathy]=3;}			
+		}}catch(Exception e){Trans('d');}
 	}
 
 	public void MoveSx(){
-		if(Map.maze[pathx-1][pathy]!=1&&!Main.gOver){
-			Trans('a');
-			if(Map.maze[pathx][pathy]==5){Main.Eat=true;Map.maze[pathx][pathy]=0;}//Palla grossa
-			else if(Map.maze[pathx][pathy]==4){Map.maze[pathx][pathy]=0;}
-			else if(Map.maze[pathx][pathy]==2){Map.maze[pathx][pathy]=3;}
-		}
+		try{
+			if(Map.maze[pathx-1][pathy]!=1&&!Main.gOver){
+				Trans('a');
+				if(Map.maze[pathx][pathy]==5){Main.Eat=true;Map.maze[pathx][pathy]=0;}//Palla grossa
+				else if(Map.maze[pathx][pathy]==4){Map.maze[pathx][pathy]=0;}
+				else if(Map.maze[pathx][pathy]==2){Map.maze[pathx][pathy]=3;}
+			}}catch(Exception e){Trans('a');}
 	}
 
 	public void MoveUp(){
@@ -146,14 +148,21 @@ public class Pg implements Runnable{
 					try{Thread.sleep(v);}catch(Exception e){}
 				}
 				tX=0;
-				try{pathx--;}catch(Exception e){pathx=26;}}
+				if((pathx-1)!=-1)
+					pathx--;
+				else
+					pathx=27;
+				}
 			else{
 				for(tX=0;Math.abs(tX)!=Frame.dX;tX++){
 					aSprite(dir);
 					try{Thread.sleep(v);}catch(Exception e){}
 				}
 				tX=0;
-				try{pathx++;}catch(Exception e){pathx=1;}
+				if((pathx+1)!=28)
+					pathx++;
+				else
+					pathx=0;
 			}
 		}
 

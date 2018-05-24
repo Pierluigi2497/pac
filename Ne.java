@@ -65,15 +65,10 @@ public class Ne implements Runnable {
 	}
 	
 	public void run(){
-		System.out.println("partito");
 		//AZIONI PRELIMINARI
 		if(nuovo){										//aggiungere nella mappa posizioni particolari "nodi/incroci" dove i nemici possono decidere di girare 
 			for(;uscito!=true;){corri(esci());if(Map.segnale==4)Map.maze[13][12]=Map.maze[14][12]=1;}							
-			nuovo=false;
-			
-			System.out.println(""+Map.segnale);	
-			
-			System.out.println("uscito");}				
+			nuovo=false;}				
 		//corri(cieco());									//fa un ciclo di cieco per trovare la direzione in cui muoversi e andare in quella
 		//SVOLGIMENTO
 		for(;;){
@@ -109,42 +104,21 @@ public class Ne implements Runnable {
 	}
 
 	public char Follow() {
-		if(Map.maze[pathx+1][pathy]!=1&&pathx<Main.pg.pathx){
-			return('d');
-
-				//if(pathy==Main.pg.pathy&&pathx==Main.pg.pathx){
-				//	Main.gOver=true;
-				//	}
-				
-			}
-		else
+		try{
+			if(Map.maze[pathx+1][pathy]!=1&&pathx<Main.pg.pathx){
+				return('d');
+			}}catch(Exception e){return 'd';}
+		try{
 			if(Map.maze[pathx-1][pathy]!=1&&pathx>Main.pg.pathx){
 				return('a');
-
-				//	if(pathy==Main.pg.pathy&&pathx==Main.pg.pathx){
-				//		Main.gOver=true;
-				//	}
-					
-				}
-		else
-			if(Map.maze[pathx][pathy+1]!=1&&pathy<Main.pg.pathy){
-				return('s');
-
-				//if(pathy==Main.pg.pathy&&pathx==Main.pg.pathx){
-				//	Main.gOver=true;
-				//}
-				
+			}}catch(Exception e){return 'a';}
+		if(Map.maze[pathx][pathy+1]!=1&&pathy<Main.pg.pathy){
+			return('s');
 			}
-		else
-			if(Map.maze[pathx][pathy-1]!=1&&pathy>Main.pg.pathy){
-				return('w');
-
-				//		if(pathy==Main.pg.pathy&&pathx==Main.pg.pathx){
-				//			Main.gOver=true;
-				//		}
-						
+		if(Map.maze[pathx][pathy-1]!=1&&pathy>Main.pg.pathy){
+			return('w');		
 				}
-		else{return 'o';}	
+		{return cieco();}	
 	}
 
 
@@ -179,10 +153,12 @@ public class Ne implements Runnable {
 		if((d%2)==0){								//se pari si muoverà su asse x
 			d=(int)(Math.random()*10);
 			d++;									//ricalcolo
-			if((d%2)==0){							//se di nuovo pari andrà a destra
-				if(Map.maze[pathx+1][pathy]!=1)return 'd';}
-			else									//se è dispari andrà a sinistra
-				if(Map.maze[pathx-1][pathy]!=1)return'a';}
+			if((d%2)==0){
+			try{									//se di nuovo pari andrà a destra
+				if(Map.maze[pathx+1][pathy]!=1)return 'd';}catch(Exception e){return 'd';}}
+			else
+			try{									//se è dispari andrà a sinistra
+				if(Map.maze[pathx-1][pathy]!=1)return'a';}catch(Exception e){return 'a';}}
 		else{										//se dispari si muoverà su asse y
 			d=(int)(Math.random()*10);	
 			d++;									//ricalcolo
@@ -210,7 +186,6 @@ public class Ne implements Runnable {
 	//Aumenta i pixel di un quadrato di array grafico(la grandezza di uno spostamento reale) per creare una transizione
 	public void Trans(char dir){
 		int v;
-
 		
 
 		if(dir=='w'||dir=='s'){
@@ -245,28 +220,44 @@ public class Ne implements Runnable {
 		else {
 			v=vel/Frame.dX;
 			if(dir=='a'){
-				while(Map.maze[pathx-1][pathy]!=1){
+				try{
+					while(Map.maze[pathx-1][pathy]!=1){
+						for(tX=0;Math.abs(tX)!=Frame.dX;tX--){
+							aSprite(dir);
+							try{Thread.sleep(v);}catch(Exception e){}
+						}
+						tX=0;
+						pathx--;
+						if(Map.maze[pathx][pathy]==2||Map.maze[pathx][pathy]==3)
+							break;
+						System.out.println("X:::::::::::"+pathx+"\n");
+				}}catch(Exception e){
 					for(tX=0;Math.abs(tX)!=Frame.dX;tX--){
 						aSprite(dir);
-						try{Thread.sleep(v);}catch(Exception e){}
+						try{Thread.sleep(v);}catch(Exception a){}
 					}
 					tX=0;
-					pathx--;
-					if(Map.maze[pathx][pathy]==2||Map.maze[pathx][pathy]==3)
-						break;
-				}
+					pathx=27;Trans('a');}
 			}
-			else{
+			else{		
+			try{		
 				while(Map.maze[pathx+1][pathy]!=1){
 					for(tX=0;Math.abs(tX)!=Frame.dX;tX++){
 						aSprite(dir);
 						try{Thread.sleep(v);}catch(Exception e){}
 					}
-					tX=0;
+					tX=0;	
 					pathx++;
 					if(Map.maze[pathx][pathy]==2||Map.maze[pathx][pathy]==3)
 						break;
-				}
+				}}catch(Exception e){
+					for(tX=0;Math.abs(tX)!=Frame.dX;tX++){
+						aSprite(dir);
+						try{Thread.sleep(v);}catch(Exception a){}
+					}
+					pathx=0;
+					tX=0;
+					Trans('d');}
 			}
 		}
 }
@@ -315,17 +306,22 @@ public class Ne implements Runnable {
 							Main.gOver=true;
 						}}break;
 
-				case 'd':{Trans('d');
+				case 'd':{
+						if((pathx+1)==28)
+							pathx=0;
+						Trans('d');
 						if(pathy==Main.pg.pathy&&pathx==Main.pg.pathx){
 							Main.gOver=true;
 						}}break;
 
-				case 's':{Trans('s');
+				case 's':{
+						Trans('s');
 						if(pathy==Main.pg.pathy&&pathx==Main.pg.pathx){
 							Main.gOver=true;
 						}}break;
 
-				case 'a':{Trans('a');
+				case 'a':{
+						Trans('a');
 						if(pathy==Main.pg.pathy&&pathx==Main.pg.pathx){
 							Main.gOver=true;
 						}}break;
