@@ -49,7 +49,7 @@ public class Pg implements Runnable{
 			if(Map.maze[pathx+1][pathy]!=1&&!Main.gOver){
 				Trans('d');
 				if(Map.maze[pathx][pathy]==5){Main.Eat=true;Map.maze[pathx][pathy]=0;} //Se mangia la palla grossa lui può mangiare i fantasmi e la palla diventa uno spazio vuoto 0
-				else if(Map.maze[pathx][pathy]==4){Map.maze[pathx][pathy]=0;}
+				else if(Map.maze[pathx][pathy]==4){Map.maze[pathx][pathy]=0;Main.score=Main.score+10;}
 				else if(Map.maze[pathx][pathy]==2){Map.maze[pathx][pathy]=3;}			
 		}}catch(Exception e){Trans('d');}
 	}
@@ -59,7 +59,7 @@ public class Pg implements Runnable{
 			if(Map.maze[pathx-1][pathy]!=1&&!Main.gOver){
 				Trans('a');
 				if(Map.maze[pathx][pathy]==5){Main.Eat=true;Map.maze[pathx][pathy]=0;}//Palla grossa
-				else if(Map.maze[pathx][pathy]==4){Map.maze[pathx][pathy]=0;}
+				else if(Map.maze[pathx][pathy]==4){Map.maze[pathx][pathy]=0;Main.score=Main.score+10;}
 				else if(Map.maze[pathx][pathy]==2){Map.maze[pathx][pathy]=3;}
 			}}catch(Exception e){Trans('a');}
 	}
@@ -68,7 +68,7 @@ public class Pg implements Runnable{
 		if(Map.maze[pathx][pathy-1]!=1&&!Main.gOver){
 			Trans('w');
 			if(Map.maze[pathx][pathy]==5){Main.Eat=true;Map.maze[pathx][pathy]=0;}
-			else if(Map.maze[pathx][pathy]==4){Map.maze[pathx][pathy]=0;}
+			else if(Map.maze[pathx][pathy]==4){Map.maze[pathx][pathy]=0;Main.score=Main.score+10;}
 			else if(Map.maze[pathx][pathy]==2){Map.maze[pathx][pathy]=3;}
 				
 		}
@@ -80,7 +80,7 @@ public class Pg implements Runnable{
 		if(Map.maze[pathx][pathy+1]!=1&&!Main.gOver){
 			Trans('s');
 			if(Map.maze[pathx][pathy]==5){Main.Eat=true;Map.maze[pathx][pathy]=0;}//Palla grossa
-			else if(Map.maze[pathx][pathy]==4){Map.maze[pathx][pathy]=0;}
+			else if(Map.maze[pathx][pathy]==4){Map.maze[pathx][pathy]=0;Main.score=Main.score+10;}
 			else if(Map.maze[pathx][pathy]==2){Map.maze[pathx][pathy]=3;}
 			
 					
@@ -104,6 +104,7 @@ public class Pg implements Runnable{
 				case 's':MoveDw();break;
 				case 'w':MoveUp();break;
 			}
+			System.out.println(Main.score);
 		}
 	}
 
@@ -122,16 +123,16 @@ public class Pg implements Runnable{
 	public void Trans(char dir){
 		int v;
 		if(dir=='w'||dir=='s'){
-			v=vel/Main.dY;
+			v=vel/Frame.dY;
 			if(dir=='w'){
-				for(tY=0;Math.abs(tY)!=Main.dY;tY--){
+				for(tY=0;Math.abs(tY)!=Frame.dY;tY--){
 					aSprite(dir);
 					try{Thread.sleep(v);}catch(Exception e){}
 				}
 				tY=0;
 				pathy--;}
 				else{
-					for(tY=0;Math.abs(tY)!=Main.dY;tY++){
+					for(tY=0;Math.abs(tY)!=Frame.dY;tY++){
 						aSprite(dir);
 						try{Thread.sleep(v);}catch(Exception e){}
 					}
@@ -141,9 +142,9 @@ public class Pg implements Runnable{
 		}
 
 		else {
-			v=vel/Main.dX;
+			v=vel/Frame.dX;
 			if(dir=='a'){
-				for(tX=0;Math.abs(tX)!=Main.dX;tX--){
+				for(tX=0;Math.abs(tX)!=Frame.dX;tX--){
 					aSprite(dir);
 					try{Thread.sleep(v);}catch(Exception e){}
 				}
@@ -154,7 +155,7 @@ public class Pg implements Runnable{
 					pathx=27;
 				}
 			else{
-				for(tX=0;Math.abs(tX)!=Main.dX;tX++){
+				for(tX=0;Math.abs(tX)!=Frame.dX;tX++){
 					aSprite(dir);
 					try{Thread.sleep(v);}catch(Exception e){}
 				}

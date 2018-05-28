@@ -188,11 +188,11 @@ public class Ne implements Runnable {
 		
 
 		if(dir=='w'||dir=='s'){
-			v=vel/Main.dY;
+			v=vel/Frame.dY;
 			
 			if(dir=='w'){
 				while(Map.maze[pathx][pathy-1]!=1){
-					for(tY=0;Math.abs(tY)!=Main.dY;tY--){
+					for(tY=0;Math.abs(tY)!=Frame.dY;tY--){
 						aSprite(dir);
 						try{Thread.sleep(v);}catch(Exception e){}
 					}
@@ -204,7 +204,7 @@ public class Ne implements Runnable {
 			}
 				else{
 					while(Map.maze[pathx][pathy+1]!=1){
-						for(tY=0;Math.abs(tY)!=Main.dY;tY++){
+						for(tY=0;Math.abs(tY)!=Frame.dY;tY++){
 							aSprite(dir);
 							try{Thread.sleep(v);}catch(Exception e){}
 						}
@@ -217,11 +217,11 @@ public class Ne implements Runnable {
 				}
 			}
 		else {
-			v=vel/Main.dX;
+			v=vel/Frame.dX;
 			if(dir=='a'){
 				try{
 					while(Map.maze[pathx-1][pathy]!=1){
-						for(tX=0;Math.abs(tX)!=Main.dX;tX--){
+						for(tX=0;Math.abs(tX)!=Frame.dX;tX--){
 							aSprite(dir);
 							try{Thread.sleep(v);}catch(Exception e){}
 						}
@@ -230,7 +230,7 @@ public class Ne implements Runnable {
 						if(Map.maze[pathx][pathy]==2||Map.maze[pathx][pathy]==3)
 							break;
 				}}catch(Exception e){
-					for(tX=0;Math.abs(tX)!=Main.dX;tX--){
+					for(tX=0;Math.abs(tX)!=Frame.dX;tX--){
 						aSprite(dir);
 						try{Thread.sleep(v);}catch(Exception a){}
 					}
@@ -240,7 +240,7 @@ public class Ne implements Runnable {
 			else{		
 			try{		
 				while(Map.maze[pathx+1][pathy]!=1){
-					for(tX=0;Math.abs(tX)!=Main.dX;tX++){
+					for(tX=0;Math.abs(tX)!=Frame.dX;tX++){
 						aSprite(dir);
 						try{Thread.sleep(v);}catch(Exception e){}
 					}
@@ -249,7 +249,7 @@ public class Ne implements Runnable {
 					if(Map.maze[pathx][pathy]==2||Map.maze[pathx][pathy]==3)
 						break;
 				}}catch(Exception e){
-					for(tX=0;Math.abs(tX)!=Main.dX;tX++){
+					for(tX=0;Math.abs(tX)!=Frame.dX;tX++){
 						aSprite(dir);
 						try{Thread.sleep(v);}catch(Exception a){}
 					}

@@ -21,8 +21,7 @@ public class Main{
 	  static BufferedImage Game;
 	  static int dots=0;
 	  static Boolean Eat=false;
-	  static int dX;
-	  static int dY;
+	  static int score;
 
 
 	  public static void main(String[] args) {
@@ -32,6 +31,7 @@ public class Main{
 	  		map=ImageIO.read(Main.class.getResource("/res/map.png"));}catch(Exception e){}
 
 	  	 pg=new Pg(6,9);
+	  	 score=0;
 	  	 ne[0]=new Ne(12,14,"red");
 	 	 ne[1]=new Ne(13,14,"pink");
 	 	 ne[2]=new Ne(14,14,"blue");
@@ -42,9 +42,7 @@ public class Main{
 	 	 n[3]=new Thread(ne[3]);
 	 	 p=new Thread(pg);
 		  f.f.setVisible(true);
-		  f.f.setSize(616,713);
-		  dX=(f.f.getWidth()/Map.x);
-		  dY=(f.f.getHeight()/Map.y);
+		  f.f.setSize(640,720);
 		  f.f.add(f);
 		  f.f.setBackground(Color.BLACK);	  
 		  f.f.addKeyListener(new KeyAdapter() {

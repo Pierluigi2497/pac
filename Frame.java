@@ -19,9 +19,13 @@ public class Frame extends JPanel implements Runnable {
 	private BufferedImage image;
 	private BufferedImage dot;
 	private BufferedImage Dot;
+	static int dX;
+	static int dY;
 
 	public Frame(){
-		f.setResizable(false);
+		dX=(this.getWidth()/Map.x);
+
+		dY=(this.getHeight()/Map.y);
 	}
 
 	public void run(){
@@ -37,10 +41,8 @@ public class Frame extends JPanel implements Runnable {
 
 	  public void paintComponent(Graphics g) {
 	  	
-	  				super.paintComponent(g);
-	  				this.setSize(616,713);
-	  				f.setSize(622,742);
-	                g.drawImage(Main.map,0,0,Main.dX*Map.x,Main.dY*Map.y,null);
+
+	                g.drawImage(Main.map,0,0,dX*Map.x,dY*Map.y,null);
 	               
 	                
 	                //Disegno Palline
@@ -48,26 +50,26 @@ public class Frame extends JPanel implements Runnable {
 	               		for(int l=0;l<Map.y;l++)
 	               			if(Map.maze[i][l]==2||Map.maze[i][l]==4){
 	               				Main.dots++;
-	               				g.drawImage(dot,Main.dX*i,Main.dY*l,Main.dX,Main.dY,null);}
+	               				g.drawImage(dot,dX*i,dY*l,dX,dY,null);}
 	               			else if(Map.maze[i][l]==5){
 	               				Main.dots++;
-	               				g.drawImage(Dot,Main.dX*i,Main.dY*l,Main.dX,Main.dY,null);
+	               				g.drawImage(Dot,dX*i,dY*l,dX,dY,null);
 	               			}
 
 
 	               	if(!Main.gOver)
 	               	 for(int i=0;i<4;i++)
-	                	g.drawImage(Main.ne[i].n,(Main.dX * Main.ne[i].pathx)+Main.ne[i].tX,(Main.dY * Main.ne[i].pathy)+Main.ne[i].tY,Main.dX,Main.dY,null);
-	                 g.drawImage(Main.pg.Pac,(Main.dX * Main.pg.pathx)+Main.pg.tX,(Main.dY * Main.pg.pathy)+Main.pg.tY,Main.dX,Main.dY,null);
+	                	g.drawImage(Main.ne[i].n,(dX * Main.ne[i].pathx)+Main.ne[i].tX,(dY * Main.ne[i].pathy)+Main.ne[i].tY,dX,dY,null);
+	                 g.drawImage(Main.pg.Pac,(dX * Main.pg.pathx)+Main.pg.tX,(dY * Main.pg.pathy)+Main.pg.tY,dX,dY,null);
 	                         		
 
 
 	               	}
 
 	public void upD(){
-		Main.dX=(Main.f.getWidth()/Map.x);
+		dX=(Main.f.getWidth()/Map.x);
 
-		Main.dY=(Main.f.getHeight()/Map.y);
+		dY=(Main.f.getHeight()/Map.y);
 
 
 	}
