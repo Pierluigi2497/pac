@@ -21,6 +21,8 @@ public class Main{
 	  static BufferedImage Game;
 	  static int dots=0;
 	  static Boolean Eat=false;
+	  static int dX;
+	  static int dY;
 
 
 	  public static void main(String[] args) {
@@ -40,7 +42,9 @@ public class Main{
 	 	 n[3]=new Thread(ne[3]);
 	 	 p=new Thread(pg);
 		  f.f.setVisible(true);
-		  f.f.setSize(640,720);
+		  f.f.setSize(616,713);
+		  dX=(f.f.getWidth()/Map.x);
+		  dY=(f.f.getHeight()/Map.y);
 		  f.f.add(f);
 		  f.f.setBackground(Color.BLACK);	  
 		  f.f.addKeyListener(new KeyAdapter() {

@@ -122,16 +122,16 @@ public class Pg implements Runnable{
 	public void Trans(char dir){
 		int v;
 		if(dir=='w'||dir=='s'){
-			v=vel/Frame.dY;
+			v=vel/Main.dY;
 			if(dir=='w'){
-				for(tY=0;Math.abs(tY)!=Frame.dY;tY--){
+				for(tY=0;Math.abs(tY)!=Main.dY;tY--){
 					aSprite(dir);
 					try{Thread.sleep(v);}catch(Exception e){}
 				}
 				tY=0;
 				pathy--;}
 				else{
-					for(tY=0;Math.abs(tY)!=Frame.dY;tY++){
+					for(tY=0;Math.abs(tY)!=Main.dY;tY++){
 						aSprite(dir);
 						try{Thread.sleep(v);}catch(Exception e){}
 					}
@@ -141,9 +141,9 @@ public class Pg implements Runnable{
 		}
 
 		else {
-			v=vel/Frame.dX;
+			v=vel/Main.dX;
 			if(dir=='a'){
-				for(tX=0;Math.abs(tX)!=Frame.dX;tX--){
+				for(tX=0;Math.abs(tX)!=Main.dX;tX--){
 					aSprite(dir);
 					try{Thread.sleep(v);}catch(Exception e){}
 				}
@@ -154,7 +154,7 @@ public class Pg implements Runnable{
 					pathx=27;
 				}
 			else{
-				for(tX=0;Math.abs(tX)!=Frame.dX;tX++){
+				for(tX=0;Math.abs(tX)!=Main.dX;tX++){
 					aSprite(dir);
 					try{Thread.sleep(v);}catch(Exception e){}
 				}
