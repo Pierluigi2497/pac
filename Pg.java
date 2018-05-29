@@ -48,9 +48,7 @@ public class Pg implements Runnable{
 		try{
 			if(Map.maze[pathx+1][pathy]!=1&&!Main.gOver){
 				Trans('d');
-				if(Map.maze[pathx][pathy]==5){Main.Eat=true;Map.maze[pathx][pathy]=0;} //Se mangia la palla grossa lui può mangiare i fantasmi e la palla diventa uno spazio vuoto 0
-				else if(Map.maze[pathx][pathy]==4){Map.maze[pathx][pathy]=0;}
-				else if(Map.maze[pathx][pathy]==2){Map.maze[pathx][pathy]=3;}			
+						
 		}}catch(Exception e){Trans('d');}
 	}
 
@@ -58,33 +56,18 @@ public class Pg implements Runnable{
 		try{
 			if(Map.maze[pathx-1][pathy]!=1&&!Main.gOver){
 				Trans('a');
-				if(Map.maze[pathx][pathy]==5){Main.Eat=true;Map.maze[pathx][pathy]=0;}//Palla grossa
-				else if(Map.maze[pathx][pathy]==4){Map.maze[pathx][pathy]=0;}
-				else if(Map.maze[pathx][pathy]==2){Map.maze[pathx][pathy]=3;}
 			}}catch(Exception e){Trans('a');}
 	}
 
 	public void MoveUp(){
 		if(Map.maze[pathx][pathy-1]!=1&&!Main.gOver){
-			Trans('w');
-			if(Map.maze[pathx][pathy]==5){Main.Eat=true;Map.maze[pathx][pathy]=0;}
-			else if(Map.maze[pathx][pathy]==4){Map.maze[pathx][pathy]=0;}
-			else if(Map.maze[pathx][pathy]==2){Map.maze[pathx][pathy]=3;}
-				
+			Trans('w');				
 		}
 	}
 
 	public void MoveDw(){
-
-		
 		if(Map.maze[pathx][pathy+1]!=1&&!Main.gOver){
-			Trans('s');
-			if(Map.maze[pathx][pathy]==5){Main.Eat=true;Map.maze[pathx][pathy]=0;}//Palla grossa
-			else if(Map.maze[pathx][pathy]==4){Map.maze[pathx][pathy]=0;}
-			else if(Map.maze[pathx][pathy]==2){Map.maze[pathx][pathy]=3;}
-			
-					
-				
+			Trans('s');			
 		}
 
 	}
@@ -94,7 +77,7 @@ public class Pg implements Runnable{
 			if(Main.gOver){
 				for(int i=0;i<13;i++){
 					Pac=death[i];
-					try{Thread.sleep(100);}catch(Exception e){}
+					try{Thread.sleep(75);}catch(Exception e){}
 				}
 				break;
 			}
@@ -107,22 +90,11 @@ public class Pg implements Runnable{
 		}
 	}
 
-	public Boolean Controllo(){
-		switch(Main.cdir){
-				case 'a':if(Map.maze[pathx-1][pathy]!=1) return true;
-				case 'd':if(Map.maze[pathx+1][pathy]!=1) return true;
-				case 's':if(Map.maze[pathx][pathy+1]!=1) return true;
-				case 'w':if(Map.maze[pathx][pathy-1]!=1) return true;
-			}
-			return false;
-	}
-
 
 	//Aumenta i pixel di un quadrato di array grafico(la grandezza di uno spostamento reale) per creare una transizione
 	public void Trans(char dir){
-		int v;
+		int v=8;
 		if(dir=='w'||dir=='s'){
-			v=vel/Main.dY;
 			if(dir=='w'){
 				for(tY=0;Math.abs(tY)!=Main.dY;tY--){
 					aSprite(dir);
@@ -141,7 +113,6 @@ public class Pg implements Runnable{
 		}
 
 		else {
-			v=vel/Main.dX;
 			if(dir=='a'){
 				for(tX=0;Math.abs(tX)!=Main.dX;tX--){
 					aSprite(dir);

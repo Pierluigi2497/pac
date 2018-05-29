@@ -1,5 +1,4 @@
 public class Map {
-	static int segnale=0;
 	static int x=28;
 	static int y=31;
 	//0-Vuoto  1-Muro  2-IncrocioVisibile  3-IncrocioInvisibile  4-Palline  5-Palla
@@ -26,6 +25,9 @@ public class Map {
 		maze[6][8]=maze[21][8]=2;
 		maze[12][11]=maze[15][11]=2;
 		maze[13][13]=maze[14][13]=3;
+		maze[13][11]=maze[14][11]=3;
+
+
 
 		maze[6][14]=maze[21][14]=maze[9][14]=maze[18][14]=2;
 		maze[9][17]=maze[18][17]=2;

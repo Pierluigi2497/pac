@@ -4,7 +4,7 @@ public class Ne implements Runnable {
 	private int vel=250;
 	public int tX=0;  //Translate x
 	public int tY=0;  //Translate y
-	private BufferedImage[] i=new BufferedImage[13];
+	public BufferedImage[] i=new BufferedImage[13];
 	public BufferedImage n;
 	private Boolean c=true;
 	private boolean nuovo,uscito;
@@ -67,7 +67,8 @@ public class Ne implements Runnable {
 	public void run(){
 		//AZIONI PRELIMINARI
 		if(nuovo){										//aggiungere nella mappa posizioni particolari "nodi/incroci" dove i nemici possono decidere di girare 
-			for(;uscito!=true;){corri(esci());if(Map.segnale==4)Map.maze[13][12]=Map.maze[14][12]=1;}							
+			for(;uscito!=true;){corri(esci());}
+			Map.maze[13][12]=Map.maze[14][12]=1;							
 			nuovo=false;}				
 		//corri(cieco());									//fa un ciclo di cieco per trovare la direzione in cui muoversi e andare in quella
 		//SVOLGIMENTO
@@ -77,23 +78,19 @@ public class Ne implements Runnable {
 			} 
 
 			if(Map.maze[pathx][pathy]==2||Map.maze[pathx][pathy]==3){ //SE INCONTRA UNNODO
-						if(radar()){	
+						if(radar()&&Main.Eat==0){	
 							corri(Follow());
-							try{Thread.sleep(20);}catch(Exception e){}
 						}
 						else{	
-							char a=cieco();
-							corri(a);
+							corri(cieco());
 						}
 					}
 
-			if(radar()){	
+			if(radar()&&Main.Eat==0){	
 				corri(Follow());
-				try{Thread.sleep(20);}catch(Exception e){}
 				}
 			else{	
-				char a=cieco();
-				corri(a);
+				corri(cieco());
 
 				}
 
@@ -122,7 +119,7 @@ public class Ne implements Runnable {
 
 
 	public char esci() {
-		if(pathy==11){uscito=true;Map.segnale++;return 'o';}
+		if(pathy==11){uscito=true;return 'o';}
 		
 
 		if(Map.maze[pathx][pathy]==3){
@@ -262,7 +259,9 @@ public class Ne implements Runnable {
 
 	public void aSprite(char dir){
 		//e=eatable Mangiabile		q=Quasi Mangiabile
-		switch(dir){
+
+		if(Pulse.situation==0){
+			switch(dir){
 			case 'w':{if(c){
 						n=i[4];
 						c=!c;
@@ -294,6 +293,12 @@ public class Ne implements Runnable {
 			
 			}
 		}
+		else if(Pulse.situation==1){
+			blueSprite();
+		}
+
+		
+		}
 
 
 		public void corri(char direzione){												//Valori Direzione:
@@ -324,6 +329,16 @@ public class Ne implements Runnable {
 							Main.gOver=true;
 						}}break;
 			}		
+		}
+
+		public void blueSprite(){
+			if(c){
+				n=i[8];
+				c=!c;
+			}else{
+				n=i[9];
+				c=!c;
+			}
 		}
 
 	}

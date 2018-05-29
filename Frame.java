@@ -18,10 +18,11 @@ public class Frame extends JPanel implements Runnable {
 	public JFrame f=new JFrame();
 	private BufferedImage image;
 	private BufferedImage dot;
-	private BufferedImage Dot;
+	static BufferedImage Dot;
 
 	public Frame(){
 		f.setResizable(false);
+
 	}
 
 	public void run(){

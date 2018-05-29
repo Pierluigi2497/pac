@@ -20,12 +20,15 @@ public class Main{
 	  static BufferedImage map;
 	  static BufferedImage Game;
 	  static int dots=0;
-	  static Boolean Eat=false;
+	  static int Eat=0;
 	  static int dX;
 	  static int dY;
+	  static Pulse pulse;
+	  static Thread pul; 
 
 
 	  public static void main(String[] args) {
+	  	
 
 
 	  	try{img=ImageIO.read(Main.class.getResource("/res/sheet.png"));
@@ -40,6 +43,8 @@ public class Main{
 	 	 n[1]=new Thread(ne[1]);
 	 	 n[2]=new Thread(ne[2]);
 	 	 n[3]=new Thread(ne[3]);
+	 	 pulse=new Pulse();
+	 	 pul=new Thread(pulse);
 	 	 p=new Thread(pg);
 		  f.f.setVisible(true);
 		  f.f.setSize(616,713);
@@ -52,14 +57,15 @@ public class Main{
 					cdir=e.getKeyChar();
 				}
 			});
-		
 		  disegno.start();
+		  try{Thread.sleep(300);}catch(Exception e){}//Inserire 3000
+		  
 		  p.start();
-		  try{Thread.sleep(100);}catch(Exception e){}
 		  n[0].start();
 		  n[1].start();
 		  n[2].start();
 		  n[3].start();
+		  pul.start();
 	  }
 	   
 }
