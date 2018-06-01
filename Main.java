@@ -1,4 +1,4 @@
-import javax.swing.JFrame;
+	import javax.swing.JFrame;
 import javax.swing.JComponent;
 import java.awt.image.BufferedImage;
 import javax.imageio.*;
@@ -19,20 +19,35 @@ public class Main{
 	  static Boolean gOver =false;
 	  static BufferedImage map;
 	  static BufferedImage Game;
+	  static BufferedImage Scritte;
 	  static int dots=0;
 	  static int Eat=0;
 	  static int dX;
 	  static int dY;
 	  static Pulse pulse;
 	  static Thread pul; 
+	  static BufferedImage[] s=new BufferedImage[10];
+	  static BufferedImage[] sf=new BufferedImage[4];
+	  static int score;
 
 
 	  public static void main(String[] args) {
 	  	
 
-
+	  	
 	  	try{img=ImageIO.read(Main.class.getResource("/res/sheet.png"));
-	  		map=ImageIO.read(Main.class.getResource("/res/map.png"));}catch(Exception e){}
+	  		map=ImageIO.read(Main.class.getResource("/res/map.png"));
+	  		Scritte=ImageIO.read(Main.class.getResource("/res/scritte.png"));}catch(Exception e){}
+	  	 s[0]=Scritte.getSubimage(0,0,11,10);
+	  	 s[1]=Scritte.getSubimage(13,0,9,10);
+	  	 s[2]=Scritte.getSubimage(24,0,11,10);
+	  	 s[3]=Scritte.getSubimage(36,0,11,10);
+	  	 s[4]=Scritte.getSubimage(48,0,11,10);
+	  	 s[5]=Scritte.getSubimage(60,0,11,10);
+	  	 s[6]=Scritte.getSubimage(72,0,11,10);
+	  	 s[7]=Scritte.getSubimage(84,0,11,10);
+	  	 s[8]=Scritte.getSubimage(96,0,11,10);
+	  	 s[9]=Scritte.getSubimage(108,0,11,10);
 
 	  	 pg=new Pg(6,9);
 	  	 ne[0]=new Ne(12,14,"red");

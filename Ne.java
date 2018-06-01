@@ -8,8 +8,10 @@ public class Ne implements Runnable {
 	public BufferedImage n;
 	private Boolean c=true;
 	private boolean nuovo,uscito;
+	private String color;
 	private char ldir;	//last direction (l'ultima rotta che ha preso il png)
 	public Ne(int x,int y,String a){
+		color=a;
 		pathx=x;
 		pathy=y;
 		nuovo=true;
@@ -304,30 +306,18 @@ public class Ne implements Runnable {
 		public void corri(char direzione){												//Valori Direzione:
 																						//w=su  d=destra  s=giù  a=sinistra
 			switch(direzione){
-				case 'w':{Trans('w');
-						if(pathy==Main.pg.pathy&&pathx==Main.pg.pathx){
-							Main.gOver=true;
-						}}break;
+				case 'w':{Trans('w');}break;
 
 				case 'd':{
 						if((pathx+1)==28)
 							pathx=0;
-						Trans('d');
-						if(pathy==Main.pg.pathy&&pathx==Main.pg.pathx){
-							Main.gOver=true;
-						}}break;
+						Trans('d');}break;
 
 				case 's':{
-						Trans('s');
-						if(pathy==Main.pg.pathy&&pathx==Main.pg.pathx){
-							Main.gOver=true;
-						}}break;
+						Trans('s');}break;
 
 				case 'a':{
-						Trans('a');
-						if(pathy==Main.pg.pathy&&pathx==Main.pg.pathx){
-							Main.gOver=true;
-						}}break;
+						Trans('a');}break;
 			}		
 		}
 
@@ -339,6 +329,51 @@ public class Ne implements Runnable {
 				n=i[9];
 				c=!c;
 			}
+		}
+
+		public void Fuga(){
+			while(((pathx!=13)||(pathx!=14))&&(pathx!=11))
+				Follow(13,14);
+			if(color=="red"){
+			i[0]=Main.img.getSubimage(4,65,14,14);
+			i[1]=Main.img.getSubimage(20,65,14,14);
+			i[2]=Main.img.getSubimage(36,65,14,14);
+			i[3]=Main.img.getSubimage(52,65,14,14);
+			i[4]=Main.img.getSubimage(68,65,14,14);
+			i[5]=Main.img.getSubimage(84,65,14,14);
+			i[6]=Main.img.getSubimage(100,65,14,14);
+			i[7]=Main.img.getSubimage(116,65,14,14);
+			}
+		else if(color=="pink"){
+			i[0]=Main.img.getSubimage(4,81,14,14);
+			i[1]=Main.img.getSubimage(20,81,14,14);
+			i[2]=Main.img.getSubimage(36,81,14,14);
+			i[3]=Main.img.getSubimage(52,81,14,14);
+			i[4]=Main.img.getSubimage(68,81,14,14);
+			i[5]=Main.img.getSubimage(84,81,14,14);
+			i[6]=Main.img.getSubimage(100,81,14,14);
+			i[7]=Main.img.getSubimage(116,81,14,14);
+		}
+		else if(color=="blue"){
+			i[0]=Main.img.getSubimage(4,97,14,14);
+			i[1]=Main.img.getSubimage(20,97,14,14);
+			i[2]=Main.img.getSubimage(36,97,14,14);
+			i[3]=Main.img.getSubimage(52,97,14,14);
+			i[4]=Main.img.getSubimage(68,97,14,14);
+			i[5]=Main.img.getSubimage(84,97,14,14);
+			i[6]=Main.img.getSubimage(100,97,14,14);
+			i[7]=Main.img.getSubimage(116,97,14,14);
+		}
+		else if(color=="yellow"){
+			i[0]=Main.img.getSubimage(4,113,14,14);
+			i[1]=Main.img.getSubimage(20,113,14,14);
+			i[2]=Main.img.getSubimage(36,113,14,14);
+			i[3]=Main.img.getSubimage(52,113,14,14);
+			i[4]=Main.img.getSubimage(68,113,14,14);
+			i[5]=Main.img.getSubimage(84,113,14,14);
+			i[6]=Main.img.getSubimage(100,113,14,14);
+			i[7]=Main.img.getSubimage(116,113,14,14);
+		}
 		}
 
 	}

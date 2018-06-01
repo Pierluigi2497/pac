@@ -33,11 +33,17 @@ public class Pulse implements Runnable{
 
 
 	public void pacControl(){
-			if(Map.maze[Main.pg.pathx][Main.pg.pathy]==5){Main.Eat=1;Map.maze[Main.pg.pathx][Main.pg.pathy]=0;} //Se mangia la palla grossa lui può mangiare i fantasmi e la palla diventa uno spazio vuoto 0
-				else if(Map.maze[Main.pg.pathx][Main.pg.pathy]==4){Map.maze[Main.pg.pathx][Main.pg.pathy]=0;}
-				else if(Map.maze[Main.pg.pathx][Main.pg.pathy]==2){Map.maze[Main.pg.pathx][Main.pg.pathy]=3;}
+			if(Map.maze[Main.pg.pathx][Main.pg.pathy]==5){Main.Eat=1;Map.maze[Main.pg.pathx][Main.pg.pathy]=0;Main.score=Main.score+50;} //Se mangia la palla grossa lui può mangiare i fantasmi e la palla diventa uno spazio vuoto 0
+				else if(Map.maze[Main.pg.pathx][Main.pg.pathy]==4){Map.maze[Main.pg.pathx][Main.pg.pathy]=0;Main.score=Main.score+10;}
+				else if(Map.maze[Main.pg.pathx][Main.pg.pathy]==2){Map.maze[Main.pg.pathx][Main.pg.pathy]=3;Main.score=Main.score+10;}
 				//Controllo Morte
-				
+				for(int i=0;i<4;i++){
+					if(Main.ne[i].pathy==Main.pg.pathy&&Main.ne[i].pathx==Main.pg.pathx){
+						if(Main.Eat==1)
+							Main.n[i].Fuga();
+						else
+							Main.gOver=true;
+						}}
 			}
 
 
@@ -80,9 +86,7 @@ public class Pulse implements Runnable{
 			almostEatableMillis=clock.millis();
 		}
 		if((clock.millis()-pulseWhite)>350){
-			System.out.println(c);
 			if(c==true){
-				System.out.println("qqqq");
 				c=false;
 
 				for(int i=0;i<4;i++){
@@ -91,7 +95,6 @@ public class Pulse implements Runnable{
 				}
 				}
 				else if(c==false){
-					System.out.println("ssss");
 					c=true;
 					for(int i=0;i<4;i++){
 						Main.ne[i].i[8]=this.i[0];
@@ -99,7 +102,6 @@ public class Pulse implements Runnable{
 				}
 				
 				}
-				System.out.println((clock.millis()-pulseWhite));
 				pulseWhite=0;
 
 		}
@@ -111,4 +113,6 @@ public class Pulse implements Runnable{
 			situation=0;
 		}
 	}
+
+	
 }

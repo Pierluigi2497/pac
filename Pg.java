@@ -9,7 +9,7 @@ public class Pg implements Runnable{
 	private BufferedImage[] pac=new BufferedImage[9];
 	public BufferedImage Pac;
 	private Boolean c=true;
-
+    private int i[]=new int[4];
 
 	public Pg(int x,int y){
 		pathx=x;
@@ -87,6 +87,7 @@ public class Pg implements Runnable{
 				case 's':MoveDw();break;
 				case 'w':MoveUp();break;
 			}
+			Score();
 		}
 	}
 
@@ -174,6 +175,34 @@ public class Pg implements Runnable{
 						c=!c;
 						}}break;
 		}
+	}
+
+
+	public void Score(){
+		
+		i[0]=Main.score%10;
+		i[1]=Main.score%100;
+		i[1]=i[1]/10;
+		System.out.println(i[1]);
+		i[2]=Main.score%1000;
+		i[2]=i[2]/100;
+		i[3]=Main.score/1000;
+
+		for(int l=0;l<4;l++)
+			switch(i[l]){
+				case 0:{Main.sf[l]=Main.s[0];}break;
+				case 1:{System.out.println("ASSADGASFDASDUFHAUSDF");Main.sf[l]=Main.s[1];}break;
+				case 2:{Main.sf[l]=Main.s[2];}break;
+				case 3:{Main.sf[l]=Main.s[3];}break;
+				case 4:{Main.sf[l]=Main.s[4];}break;
+				case 5:{Main.sf[l]=Main.s[5];}break;
+				case 6:{Main.sf[l]=Main.s[6];}break;
+				case 7:{Main.sf[l]=Main.s[7];}break;
+				case 8:{Main.sf[l]=Main.s[8];}break;
+				case 9:{Main.sf[l]=Main.s[9];}break;
+			}
+
+
 	}
 
 	

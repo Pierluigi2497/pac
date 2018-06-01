@@ -19,6 +19,8 @@ public class Frame extends JPanel implements Runnable {
 	private BufferedImage image;
 	private BufferedImage dot;
 	static BufferedImage Dot;
+	private int i;//Controllo per score
+	private int l;//Controllo per invertire score
 
 	public Frame(){
 		f.setResizable(false);
@@ -37,7 +39,6 @@ public class Frame extends JPanel implements Runnable {
 	}
 
 	  public void paintComponent(Graphics g) {
-	  	
 	  				super.paintComponent(g);
 	  				this.setSize(616,713);
 	  				f.setSize(622,742);
@@ -62,8 +63,15 @@ public class Frame extends JPanel implements Runnable {
 	                 g.drawImage(Main.pg.Pac,(Main.dX * Main.pg.pathx)+Main.pg.tX,(Main.dY * Main.pg.pathy)+Main.pg.tY,Main.dX,Main.dY,null);
 	                         		
 
+	                 for(i=3,l=0;i>=0;i--,l++){
+	                 	g.drawImage(Main.sf[i],6+(l*11),255,11,10,null);
+	                 }               	
+
 
 	               	}
+
+
+
 
 	public void upD(){
 		Main.dX=(Main.f.getWidth()/Map.x);
