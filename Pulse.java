@@ -40,7 +40,7 @@ public class Pulse implements Runnable{
 				for(int i=0;i<4;i++){
 					if(Main.ne[i].pathy==Main.pg.pathy&&Main.ne[i].pathx==Main.pg.pathx){
 						if(Main.Eat==1)
-							Main.n[i].Fuga();
+							Main.ne[i].Fuga();
 						else
 							Main.gOver=true;
 						}}

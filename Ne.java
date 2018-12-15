@@ -333,7 +333,7 @@ public class Ne implements Runnable {
 
 		public void Fuga(){
 			while(((pathx!=13)||(pathx!=14))&&(pathx!=11))
-				Follow(13,14);
+				Follow();
 			if(color=="red"){
 			i[0]=Main.img.getSubimage(4,65,14,14);
 			i[1]=Main.img.getSubimage(20,65,14,14);
