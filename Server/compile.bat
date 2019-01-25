@@ -1,0 +1,2 @@
+javac socketS.java
+pause
